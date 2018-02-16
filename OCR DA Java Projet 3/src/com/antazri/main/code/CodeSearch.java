@@ -29,8 +29,9 @@ public class CodeSearch {
 	 */
 	public void run() {
 		while (running) {
-
 			do {
+				//proposition.resetCode();
+				//answer.resetCode();
 				System.out.println(
 						"========================================\nBienvenue dans le jeu Code Search\n========================================\n"
 								+ "1 - Mode Challenger\n" + "2 - Mode Defender\n" + "3 - Mode Duel\n"

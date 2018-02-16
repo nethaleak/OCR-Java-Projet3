@@ -26,7 +26,7 @@ public class Main {
 					switch (game) {
 
 					case 1:
-						CodeSearch codeGame = new CodeSearch(false);
+						CodeSearch codeGame = new CodeSearch(true);
 						codeGame.run();
 						break;
 
