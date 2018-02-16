@@ -83,6 +83,8 @@ public class CodeSearch {
 	 * Defense Mode : the user has to find the code
 	 */
 	public void runChallenge() {
+		proposition.resetCode();
+		answer.resetCode();
 		loop = 1;
 		System.out.println("Votre mission est de trouver le code secret généré par votre adversaire ! \n"
 				+ "Vous aurez en tout 4 essais. Bonne chance !\n=========================================");
@@ -92,6 +94,7 @@ public class CodeSearch {
 		}
 
 		do {
+			proposition.resetCode();
 			System.out.println("\nProposition n°" + loop);
 
 			for (int i = 1; i < 5; i++) {
@@ -134,6 +137,8 @@ public class CodeSearch {
 	 */
 	public void runDefense() {
 		loop = 1;
+		proposition.resetCode();
+		answer.resetCode();
 		System.out
 				.println("Votre mission est de définir un code secret que votre adversaire l'ordinateur devra trouver !"
 						+ "\n=========================================");
@@ -189,6 +194,8 @@ public class CodeSearch {
 		userScore = 0;
 		computerScore = 0;
 		loop = 1;
+		proposition.resetCode();
+		answer.resetCode();
 
 		System.out.println("Vous avez 5 manches pour vous départager, le choix du mode se fera aléatoirement !"
 				+ "\n=========================================");

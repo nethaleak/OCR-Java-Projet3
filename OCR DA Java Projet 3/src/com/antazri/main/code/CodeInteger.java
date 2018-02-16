@@ -71,6 +71,6 @@ public class CodeInteger extends Code<Integer> {
 
 	@Override
 	public void resetCode() {
-		this.getElements().clear();
+		this.setElements(new ArrayList<Integer>());
 	}
 }
