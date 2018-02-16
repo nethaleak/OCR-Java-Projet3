@@ -97,7 +97,7 @@ public class CodeSearch {
 				try {
 					System.out.println("Chiffre " + i + " :");
 					int temp = scan.nextInt();
-					proposition.getElements()[i - 1] = temp;
+					proposition.addElement(temp);
 				} catch (InputMismatchException e) {
 					System.out.println("Ce caractère n'est pas un chiffre !");
 					continue;
@@ -143,7 +143,7 @@ public class CodeSearch {
 			try {
 				System.out.println("Chiffre " + i + " :");
 				int temp = scan.nextInt();
-				answer.getElements()[i - 1] = temp;
+				answer.addElement(temp);
 			} catch (InputMismatchException e) {
 				System.out.println("Ce caractère n'est pas un chiffre !");
 				continue;
@@ -172,7 +172,7 @@ public class CodeSearch {
 					result = proposition.correction(answer.getElements());
 					System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString()
 							+ " -> Réponse : " + result);
-					proposition.generateNewProposition(answer);
+					proposition.generateNewProposition(answer.getElements());
 				}
 
 				loop++;

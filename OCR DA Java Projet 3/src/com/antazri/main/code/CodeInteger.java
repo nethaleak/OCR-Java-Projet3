@@ -1,27 +1,25 @@
 package com.antazri.main.code;
 
-public class CodeInteger {
+import java.util.ArrayList;
+import java.util.List;
 
-	private int[] elements = { 0, 0, 0, 0 };
+import com.antazri.main.utils.Code;
+
+public class CodeInteger extends Code<Integer> {
 
 	public CodeInteger() {
 		super();
-	}
-
-	public int[] getElements() {
-		return elements;
-	}
-
-	public void setElements(int[] elements) {
-		this.elements = elements;
+		
+		this.elements = new ArrayList<Integer>();
 	}
 
 	/**
 	 * Generate a combination of 4 figures
 	 **/
-	public int[] generateProposition() {
+	public List<Integer> generateProposition() {
 		for (int i = 0; i < 4; i++) {
-			this.elements[i] = (int) Math.floor(Math.random() * 10);
+			int x = (int) Math.floor(Math.random() * 10);
+			this.addElement(new Integer(x));
 		}
 		return this.elements;
 	}
@@ -29,16 +27,19 @@ public class CodeInteger {
 	/**
 	 * Generate a new combination of 4 figures after correction();
 	 **/
-	public void generateNewProposition(CodeInteger answer) {
+	@Override
+	public void generateNewProposition(List<Integer> answer) {
 		int min = 0;
 		int max = 10;
-		for (int i = 0; i < this.getElements().length; i++) {
-			if (this.getElements()[i] > answer.getElements()[i]) {
-				max = this.getElements()[i];
-				this.getElements()[i] = (int) Math.floor(Math.random() * max + min);
-			} else if (this.getElements()[i] < answer.getElements()[i]) {
-				min = this.getElements()[i];
-				this.getElements()[i] = (int) Math.floor(Math.random() * max);
+		for (int i = 0; i < this.elements.size(); i++) {
+			if (this.elements.get(i) > answer.get(i)) {
+				max = this.elements.get(i);
+				int x = (int) Math.floor(Math.random() * max + min);
+				this.elements.add(i, new Integer(x));
+			} else if (this.elements.get(i) < answer.get(i)) {
+				min = this.elements.get(i);
+				int x = (int) Math.floor(Math.random() * max);
+				this.elements.add(i, new Integer(x));
 			} else {
 				continue;
 			}
@@ -48,27 +49,19 @@ public class CodeInteger {
 	/*
 	 * Compare 2 figures and return the statement
 	 */
-	public String correction(int[] answer) {
+	@Override
+	public String correction(List<Integer> answer) {
 		String result = "";
 
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i] == answer[i]) {
+		for (int i = 0; i < elements.size(); i++) {
+			if (elements.get(i) == answer.get(i)) {
 				result += "=";
-			} else if (elements[i] < answer[i]) {
+			} else if (elements.get(i) < answer.get(i)) {
 				result += "+";
 			} else {
 				result += "-";
 			}
 		}
 		return result;
-	}
-
-	@Override
-	public String toString() {
-		String description = "";
-		for (int element : elements) {
-			description += element;
-		}
-		return description;
 	}
 }
