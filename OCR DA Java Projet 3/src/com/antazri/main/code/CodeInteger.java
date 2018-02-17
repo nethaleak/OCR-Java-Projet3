@@ -1,7 +1,9 @@
 package com.antazri.main.code;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 
 import com.antazri.main.utils.Code;
 
@@ -12,11 +14,28 @@ public class CodeInteger extends Code<Integer> {
 		
 		this.elements = new ArrayList<Integer>();
 	}
+	
+	@Override
+	public List<Integer> generateProposition() {
+		@SuppressWarnings("resource")
+		Scanner scan = new Scanner(System.in);
+		for (int i = 1; i < 5; i++) {
+			try {
+				System.out.println("Chiffre " + i + " :");
+				int temp = scan.nextInt();
+				this.addElement(temp);
+			} catch (InputMismatchException e) {
+				System.out.println("Ce caractère n'est pas un chiffre !");
+			}
+		}
+		
+		return this.elements;		
+	}
 
 	/**
-	 * Generate a combination of 4 figures
+	 * Generate automatically a combination of 4 figures
 	 **/
-	public List<Integer> generateProposition() {
+	public List<Integer> automaticProposition() {
 		this.resetCode();
 		for (int i = 0; i < 4; i++) {
 			int x = (int) Math.floor(Math.random() * 10);

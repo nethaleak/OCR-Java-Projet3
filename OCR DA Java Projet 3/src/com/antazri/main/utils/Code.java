@@ -22,6 +22,7 @@ public abstract class Code<T> {
 	}
 	
 	public abstract List<T> generateProposition();
+	public abstract List<T> automaticProposition();
 	public abstract void generateNewProposition(List<T> answer);
 	public abstract String correction(List<T> answer);
 	public abstract void resetCode();

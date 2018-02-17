@@ -14,7 +14,7 @@ public class CodeSearch {
 	private boolean running = true;
 	private int game = -1;
 	private int userScore = 0;
-	private int computerScore = 0;
+	private int npcScore = 0;
 
 	public CodeSearch(boolean developper) {
 		super();
@@ -25,13 +25,11 @@ public class CodeSearch {
 	}
 
 	/*
-	 * Run : user has to chose the type (Defense or Challenge)
+	 * Run : user has to chose the type (Defense or Challenge or Duel)
 	 */
 	public void run() {
 		while (running) {
 			do {
-				//proposition.resetCode();
-				//answer.resetCode();
 				System.out.println(
 						"========================================\nBienvenue dans le jeu Code Search\n========================================\n"
 								+ "1 - Mode Challenger\n" + "2 - Mode Defender\n" + "3 - Mode Duel\n"
@@ -80,7 +78,7 @@ public class CodeSearch {
 	}
 
 	/*
-	 * Defense Mode : the user has to find the code
+	 * Defense Mode : the user has to find the right code
 	 */
 	public void runChallenge() {
 		proposition.resetCode();
@@ -88,7 +86,7 @@ public class CodeSearch {
 		loop = 1;
 		System.out.println("Votre mission est de trouver le code secret généré par votre adversaire ! \n"
 				+ "Vous aurez en tout 4 essais. Bonne chance !\n=========================================");
-		answer.generateProposition();
+		answer.automaticProposition();
 		if (developper) {
 			System.out.println("(Le code généré est : " + answer.toString() + ")");
 		}
@@ -97,17 +95,7 @@ public class CodeSearch {
 			proposition.resetCode();
 			System.out.println("\nProposition n°" + loop);
 
-			for (int i = 1; i < 5; i++) {
-				try {
-					System.out.println("Chiffre " + i + " :");
-					int temp = scan.nextInt();
-					proposition.addElement(temp);
-				} catch (InputMismatchException e) {
-					System.out.println("Ce caractère n'est pas un chiffre !");
-					continue;
-				}
-
-			}
+			proposition.generateProposition();
 
 			if (proposition.toString().equals(answer.toString())) {
 				System.out.println("Bravo ! Vous avez trouvé le code secret !\nLa réponse était bien : "
@@ -118,7 +106,7 @@ public class CodeSearch {
 			} else {
 				if (loop == 4) {
 					System.out.println("Raté !\nLe code était : " + answer.toString() + "\n");
-					computerScore++;
+					npcScore++;
 					loop = 5;
 					break;
 				} else {
@@ -159,13 +147,13 @@ public class CodeSearch {
 		System.out.println("Vous avez défini le code : " + answer.toString());
 
 		do {
-			proposition.generateProposition();
+			proposition.automaticProposition();
 			System.out.println("\nL'ordinateur propose le code : " + proposition.toString());
 
 			if (proposition.toString().equals(answer.toString())) {
 				System.out.println(
 						"L'ordinateur a trouvé le code secret !\nLa réponse était bien : " + proposition.toString());
-				computerScore++;
+				npcScore++;
 				loop = 5;
 				break;
 			} else {
@@ -188,11 +176,11 @@ public class CodeSearch {
 	}
 
 	/*
-	 * Duel Mode : the user challenges the computer
+	 * Duel Mode : the user challenges the npc
 	 */
 	public void runDuel() {
 		userScore = 0;
-		computerScore = 0;
+		npcScore = 0;
 		loop = 1;
 		proposition.resetCode();
 		answer.resetCode();
@@ -202,7 +190,7 @@ public class CodeSearch {
 
 		do {
 			System.out.println(
-					"Le score est de :\nJoueur " + this.userScore + " / " + this.computerScore + " Ordinateur");
+					"Le score est de :\nJoueur " + this.userScore + " / " + this.npcScore + " Ordinateur");
 
 			if (Math.random() < 0.5) {
 				System.out.println("\n=========================================\n" + "Manche n°" + this.loop + ""
@@ -214,14 +202,14 @@ public class CodeSearch {
 				this.runDefense();
 			}
 
-		} while (userScore < 3 || computerScore < 3);
+		} while (userScore < 3 || npcScore < 3);
 
 		if (userScore == 3) {
 			System.out.println("Vous avez gagné contre l'ordinateur !\nScore final : Joueur " + this.userScore + " / "
-					+ this.computerScore + " Ordinateur");
-		} else if (computerScore == 3) {
+					+ this.npcScore + " Ordinateur");
+		} else if (npcScore == 3) {
 			System.out.println("Vous avez perdu contre l'ordinateur !\nScore final : Joueur " + this.userScore + " / "
-					+ this.computerScore + " Ordinateur");
+					+ this.npcScore + " Ordinateur");
 		} else {
 			System.out.println("Houston, we have a problem");
 		}

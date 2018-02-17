@@ -3,6 +3,7 @@ package com.antazri.main;
 import java.util.Scanner;
 
 import com.antazri.main.code.CodeSearch;
+import com.antazri.main.mastermind.Mastermind;
 
 public class Main {
 
@@ -31,7 +32,8 @@ public class Main {
 						break;
 
 					case 2:
-						System.out.println("Mastermind : Coming soon");
+						Mastermind mastermind = new Mastermind(true);
+						mastermind.run();
 						break;
 
 					case 0:
