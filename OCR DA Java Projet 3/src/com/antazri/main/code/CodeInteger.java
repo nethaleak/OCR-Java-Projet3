@@ -26,6 +26,7 @@ public class CodeInteger extends Code<Integer> {
 				this.addElement(temp);
 			} catch (InputMismatchException e) {
 				System.out.println("Ce caractère n'est pas un chiffre !");
+				scan.next();
 			}
 		}
 		

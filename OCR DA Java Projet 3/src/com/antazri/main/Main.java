@@ -1,5 +1,6 @@
 package com.antazri.main;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.antazri.main.code.CodeSearch;
@@ -41,12 +42,12 @@ public class Main {
 
 					default:
 						System.out.println("Désolé ! Ce jeu n'existe pas !");
-						continue;
+						break;
 					}
 
-				} catch (NumberFormatException e) {
+				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
-					continue;
+					scan.next();
 				}
 
 			} while (game != 0);

@@ -76,6 +76,7 @@ public class CodePieces extends Code<PieceColor> {
 
 			} catch (InputMismatchException e) {
 				System.out.println("Houston we have a problem : cette entrée n'est pas reconnue par Skynet !");
+				scan.next();
 			}
 		}
 		

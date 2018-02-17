@@ -60,13 +60,13 @@ public class Mastermind {
 						break;
 
 					default:
-						System.out.println("Ce jeu n'existe pas");
-						continue;
+						System.out.println("Ce mode n'existe pas");
+						break;
 					}
 
 				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
-					continue;
+					scan.next();
 				}
 			} while (game != 0);
 
