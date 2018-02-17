@@ -125,6 +125,43 @@ public class Mastermind {
 		loop = 1;
 		proposition.resetCode();
 		answer.resetCode();
+		System.out
+				.println("Votre mission est de définir un code secret que votre adversaire l'ordinateur devra trouver !"
+						+ "\n=========================================");
+
+		System.out.println("\nQuel sera votre code secret ?");
+
+		answer.generateProposition();
+
+		System.out.println("Vous avez défini le code : " + answer.toString());
+
+		do {
+			proposition.automaticProposition();
+			System.out.println("\nL'ordinateur propose le code : " + proposition.toString());
+
+			if (proposition.toString().equals(answer.toString())) {
+				System.out.println(
+						"L'ordinateur a trouvé le code secret !\nLa réponse était bien : " + proposition.toString());
+				npcScore++;
+				loop = 5;
+				break;
+			} else {
+				if (loop > 3) {
+					System.out.println("L'ordinateur n'a pas trouvé votre code : " + answer.toString() + "\n");
+					userScore++;
+					loop = 5;
+					break;
+				} else {
+					result = proposition.correction(answer.getElements());
+					System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString()
+							+ " -> Réponse : " + result);
+					proposition.generateNewProposition(answer.getElements());
+				}
+
+				loop++;
+			}
+		} while (loop < 5);
+		return;
 	}
 
 	/*
