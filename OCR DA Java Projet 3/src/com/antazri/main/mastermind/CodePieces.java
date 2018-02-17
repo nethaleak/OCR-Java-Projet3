@@ -114,20 +114,24 @@ public class CodePieces extends Code<PieceColor> {
 	public String correction(List<PieceColor> answer) {
 	this.presentPieces = 0;
 	this.rightPieces = 0;
+	List<PieceColor> temp = new ArrayList<PieceColor>(answer);
 	
-		for (PieceColor color : elements) {
-			if (answer.contains(color)) {
-				this.presentPieces++;
+		for (int i = 0; i < this.elements.size(); i++) {
+			for(int j = 0; j < temp.size(); j++) {
+				if(this.elements.get(i).equals(temp.get(j))) {
+					this.presentPieces++;
+					temp.set(j, null);
+				}
 			}
 		}
-
+		
 		for (int i = 0; i < this.elements.size(); i++) {
 			if (this.elements.get(i).equals(answer.get(i))) {
 				this.rightPieces++;
 			}
 		}
 
-		return "Pions présents :" + this.getPresentPieces() + "/4 & Pions bien placés : " + this.getRightPieces()
+		return "Pions présents : " + this.getPresentPieces() + "/4 | Pions bien placés : " + this.getRightPieces()
 				+ "/4";
 	}
 

@@ -95,8 +95,6 @@ public class Mastermind {
 
 			proposition.generateProposition();
 
-				System.out.println(proposition.getElements().toString());
-
 			if (proposition.toString().equals(answer.toString())) {
 				System.out.println("Bravo ! Vous avez trouvé le code secret !\nLa réponse était bien : "
 						+ proposition.toString() + "\n");

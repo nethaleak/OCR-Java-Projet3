@@ -11,7 +11,7 @@ public enum PieceColor {
 	private String name;
 	
 	PieceColor(String name) {
-		this.setName(name);
+		this.name = name;
 	}
 	
 	public String toString() {
@@ -20,9 +20,5 @@ public enum PieceColor {
 
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 }
