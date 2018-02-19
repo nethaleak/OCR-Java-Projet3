@@ -95,7 +95,7 @@ public class CodeSearch {
 			proposition.resetCode();
 			System.out.println("\nProposition n°" + loop);
 
-			proposition.generateProposition();
+			proposition.generateUserProposition();
 
 			if (proposition.toString().equals(answer.toString())) {
 				System.out.println("Bravo ! Vous avez trouvé le code secret !\nLa réponse était bien : "
@@ -110,7 +110,7 @@ public class CodeSearch {
 					loop = 5;
 					break;
 				} else {
-					result = proposition.correction(answer.getElements());
+					result = proposition.compare(answer.getElements());
 					System.out.println("Le code n'est pas bon !\nProposition : " + proposition.toString()
 							+ " -> Réponse : " + result);
 					loop++;
@@ -133,16 +133,7 @@ public class CodeSearch {
 
 		System.out.println("\nQuel sera votre code secret ?");
 
-		for (int i = 1; i < 5; i++) {
-			try {
-				System.out.println("Chiffre " + i + " :");
-				int temp = scan.nextInt();
-				answer.addElement(temp);
-			} catch (InputMismatchException e) {
-				System.out.println("Ce caractère n'est pas un chiffre !");
-				continue;
-			}
-		}
+		answer.generateUserProposition();
 
 		System.out.println("Vous avez défini le code : " + answer.toString());
 
@@ -154,25 +145,22 @@ public class CodeSearch {
 				System.out.println(
 						"L'ordinateur a trouvé le code secret !\nLa réponse était bien : " + proposition.toString());
 				npcScore++;
-				loop = 5;
 				break;
 			} else {
 				if (loop > 3) {
 					System.out.println("L'ordinateur n'a pas trouvé votre code : " + answer.toString() + "\n");
 					userScore++;
-					loop = 5;
 					break;
 				} else {
-					result = proposition.correction(answer.getElements());
+					result = proposition.compare(answer.getElements());
 					System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString()
 							+ " -> Réponse : " + result);
-					proposition.generateNewProposition(answer.getElements());
+					proposition.generateNpcProposition(answer.getElements());
 				}
 
 				loop++;
 			}
 		} while (loop < 5);
-		return;
 	}
 
 	/*

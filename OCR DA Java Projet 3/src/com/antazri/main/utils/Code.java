@@ -21,10 +21,10 @@ public abstract class Code<T> {
 		this.elements.add(element);
 	}
 	
-	public abstract List<T> generateProposition();
+	public abstract List<T> generateUserProposition();
 	public abstract List<T> automaticProposition();
-	public abstract void generateNewProposition(List<T> answer);
-	public abstract String correction(List<T> answer);
+	public abstract void generateNpcProposition(List<T> answer);
+	public abstract String compare(List<T> answer);
 	public abstract void resetCode();
 
 	@Override

@@ -34,7 +34,7 @@ public class CodePieces extends Code<PieceColor> {
 	}
 
 	@Override
-	public List<PieceColor> generateProposition() {
+	public List<PieceColor> generateUserProposition() {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
@@ -93,7 +93,7 @@ public class CodePieces extends Code<PieceColor> {
 	}
 
 	@Override
-	public void generateNewProposition(List<PieceColor> answer) {
+	public void generateNpcProposition(List<PieceColor> answer) {
 		List<PieceColor> temp = this.getElements();
 		this.resetCode();
 		int max = allColors().size() - 1;
@@ -112,7 +112,7 @@ public class CodePieces extends Code<PieceColor> {
 	}
 
 	@Override
-	public String correction(List<PieceColor> answer) {
+	public String compare(List<PieceColor> answer) {
 	this.presentPieces = 0;
 	this.rightPieces = 0;
 	List<PieceColor> temp = new ArrayList<PieceColor>(answer);
@@ -122,6 +122,7 @@ public class CodePieces extends Code<PieceColor> {
 				if(this.elements.get(i).equals(temp.get(j))) {
 					this.presentPieces++;
 					temp.set(j, null);
+					break;
 				}
 			}
 		}

@@ -93,7 +93,7 @@ public class Mastermind {
 			proposition.resetCode();
 			System.out.println("\nProposition n°" + loop);
 
-			proposition.generateProposition();
+			proposition.generateUserProposition();
 
 			if (proposition.toString().equals(answer.toString())) {
 				System.out.println("Bravo ! Vous avez trouvé le code secret !\nLa réponse était bien : "
@@ -108,7 +108,7 @@ public class Mastermind {
 					loop = 5;
 					break;
 				} else {
-					result = proposition.correction(answer.getElements());
+					result = proposition.compare(answer.getElements());
 					System.out.println("Le code n'est pas bon !\nProposition : " + proposition.toString()
 							+ " -> Réponse : " + result);
 					loop++;
@@ -131,7 +131,7 @@ public class Mastermind {
 
 		System.out.println("\nQuel sera votre code secret ?");
 
-		answer.generateProposition();
+		answer.generateUserProposition();
 
 		System.out.println("Vous avez défini le code : " + answer.toString());
 
@@ -152,10 +152,10 @@ public class Mastermind {
 					loop = 5;
 					break;
 				} else {
-					result = proposition.correction(answer.getElements());
+					result = proposition.compare(answer.getElements());
 					System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString()
 							+ " -> Réponse : " + result);
-					proposition.generateNewProposition(answer.getElements());
+					proposition.generateNpcProposition(answer.getElements());
 				}
 
 				loop++;
