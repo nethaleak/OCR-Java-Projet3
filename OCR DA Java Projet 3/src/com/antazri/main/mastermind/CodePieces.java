@@ -9,15 +9,20 @@ import java.util.Scanner;
 import com.antazri.main.utils.Code;
 import com.antazri.main.utils.PieceColor;
 
-public class CodePieces extends Code<PieceColor> {
+public class CodePieces implements Code<PieceColor> {
 
 	private int rightPieces = 0;
 	private int presentPieces = 0;
+	private List<PieceColor> elements;
 
 	public CodePieces() {
 		super();
 
 		this.elements = new ArrayList<PieceColor>();
+	}
+	
+	public List<PieceColor> getElements() {
+		return elements;
 	}
 
 	public int getRightPieces() {
@@ -31,6 +36,11 @@ public class CodePieces extends Code<PieceColor> {
 	public List<PieceColor> allColors() {
 		List<PieceColor> allColors = new ArrayList<PieceColor>(EnumSet.allOf(PieceColor.class));
 		return allColors;
+	}
+	
+	@Override
+	public void addElement(PieceColor element) {
+		this.elements.add(element);
 	}
 
 	@Override

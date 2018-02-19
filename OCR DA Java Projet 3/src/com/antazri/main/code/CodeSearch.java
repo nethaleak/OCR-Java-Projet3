@@ -5,10 +5,9 @@ import java.util.Scanner;
 
 public class CodeSearch {
 
-	private CodeInteger proposition = new CodeInteger();
-	private CodeInteger answer = new CodeInteger();
+	private AbstractCodeInteger proposition;
+	private AbstractCodeInteger answer;
 	private int loop = 1;
-	private String result;
 	private Scanner scan = new Scanner(System.in);
 	private boolean developper;
 	private boolean running = true;
@@ -81,12 +80,12 @@ public class CodeSearch {
 	 * Defense Mode : the user has to find the right code
 	 */
 	public void runChallenge() {
-		proposition.resetCode();
-		answer.resetCode();
+		proposition = new UserCodeInteger(4);
+		answer = new NpcCodeInteger(4);
 		loop = 1;
 		System.out.println("Votre mission est de trouver le code secret généré par votre adversaire ! \n"
 				+ "Vous aurez en tout 4 essais. Bonne chance !\n=========================================");
-		answer.automaticProposition();
+		answer.generateCode();
 		if (developper) {
 			System.out.println("(Le code généré est : " + answer.toString() + ")");
 		}
@@ -95,24 +94,25 @@ public class CodeSearch {
 			proposition.resetCode();
 			System.out.println("\nProposition n°" + loop);
 
-			proposition.generateUserProposition();
+			for(int i = 0; i < proposition.getLength(); i++) {
+				System.out.println("Chiffre n°" + (i + 1));
+				proposition.generateCode();
+			}
 
 			if (proposition.toString().equals(answer.toString())) {
 				System.out.println("Bravo ! Vous avez trouvé le code secret !\nLa réponse était bien : "
 						+ proposition.toString() + "\n");
 				userScore++;
-				loop = 5;
 				break;
 			} else {
 				if (loop == 4) {
 					System.out.println("Raté !\nLe code était : " + answer.toString() + "\n");
 					npcScore++;
-					loop = 5;
 					break;
 				} else {
-					result = proposition.compare(answer.getElements());
+					ComparatorInteger userComparator = new ComparatorInteger(proposition);
 					System.out.println("Le code n'est pas bon !\nProposition : " + proposition.toString()
-							+ " -> Réponse : " + result);
+							+ " -> Réponse : " + userComparator.compareTo(answer));
 					loop++;
 				}
 			}
@@ -125,20 +125,23 @@ public class CodeSearch {
 	 */
 	public void runDefense() {
 		loop = 1;
-		proposition.resetCode();
-		answer.resetCode();
+		proposition = new NpcCodeInteger(4);
+		answer = new UserCodeInteger(4);
 		System.out
 				.println("Votre mission est de définir un code secret que votre adversaire l'ordinateur devra trouver !"
 						+ "\n=========================================");
 
 		System.out.println("\nQuel sera votre code secret ?");
 
-		answer.generateUserProposition();
+		for(int i = 0; i < answer.getLength(); i++) {
+			System.out.println("Chiffre n°" + (i + 1));
+			answer.generateCode();
+		}
 
 		System.out.println("Vous avez défini le code : " + answer.toString());
 
 		do {
-			proposition.automaticProposition();
+			proposition.generateCode();
 			System.out.println("\nL'ordinateur propose le code : " + proposition.toString());
 
 			if (proposition.toString().equals(answer.toString())) {
@@ -152,10 +155,10 @@ public class CodeSearch {
 					userScore++;
 					break;
 				} else {
-					result = proposition.compare(answer.getElements());
+					ComparatorInteger npcComparator = new ComparatorInteger(proposition);
 					System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString()
-							+ " -> Réponse : " + result);
-					proposition.generateNpcProposition(answer.getElements());
+							+ " -> Réponse : " + npcComparator.compareTo(answer));
+					
 				}
 
 				loop++;
@@ -170,8 +173,6 @@ public class CodeSearch {
 		userScore = 0;
 		npcScore = 0;
 		loop = 1;
-		proposition.resetCode();
-		answer.resetCode();
 
 		System.out.println("Vous avez 5 manches pour vous départager, le choix du mode se fera aléatoirement !"
 				+ "\n=========================================");
