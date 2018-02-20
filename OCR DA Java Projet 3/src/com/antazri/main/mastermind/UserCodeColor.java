@@ -12,11 +12,11 @@ public class UserCodeColor extends AbstractCodeColor {
 
 	public UserCodeColor(int length) {
 		super();
-		
+
 		this.length = length;
 		this.elements = new ArrayList<CoinColor>();
 		this.wrongColors = new HashMap<>();
-		
+
 		for (int i = 0; i < this.length; i++) {
 			List<CoinColor> colors = new ArrayList<>();
 			Integer x = new Integer(i);
@@ -28,47 +28,44 @@ public class UserCodeColor extends AbstractCodeColor {
 	public void generateCode() {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-		
-		for (int i = 1; i < this.length; i++) {
-			try {
-				System.out.println("Pion " + i + " : Noir / Blanc / Jaune / Rouge / Vert / Bleu");
-				String color = scan.nextLine();
-				color.toLowerCase();
 
-				switch (color) {
-				case "noir":
-					this.addElement(CoinColor.BLACK);
-					break;
+		try {
+			String color = scan.nextLine();
+			color.toLowerCase();
 
-				case "blanc":
-					this.addElement(CoinColor.WHITE);
-					break;
+			switch (color) {
+			case "noir":
+				this.addElement(CoinColor.BLACK);
+				break;
 
-				case "bleu":
-					this.addElement(CoinColor.BLUE);
-					break;
+			case "blanc":
+				this.addElement(CoinColor.WHITE);
+				break;
 
-				case "jaune":
-					this.addElement(CoinColor.YELLOW);
-					break;
+			case "bleu":
+				this.addElement(CoinColor.BLUE);
+				break;
 
-				case "rouge":
-					this.addElement(CoinColor.RED);
-					break;
+			case "jaune":
+				this.addElement(CoinColor.YELLOW);
+				break;
 
-				case "vert":
-					this.addElement(CoinColor.GREEN);
-					break;
+			case "rouge":
+				this.addElement(CoinColor.RED);
+				break;
 
-				default:
-					System.out.println("Ceci n'est pas une couleur connue");
-					break;
-				}
+			case "vert":
+				this.addElement(CoinColor.GREEN);
+				break;
 
-			} catch (InputMismatchException e) {
-				System.out.println("Houston we have a problem : cette entrée n'est pas reconnue par Skynet !");
-				scan.next();
+			default:
+				System.out.println("Ceci n'est pas une couleur connue");
+				break;
 			}
+
+		} catch (InputMismatchException e) {
+			System.out.println("Houston we have a problem : cette entrée n'est pas reconnue par Skynet !");
+			scan.next();
 		}
 	}
 }

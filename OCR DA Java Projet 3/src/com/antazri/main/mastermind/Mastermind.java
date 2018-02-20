@@ -8,7 +8,6 @@ public class Mastermind {
 	private AbstractCodeColor proposition;
 	private AbstractCodeColor answer;
 	private int loop = 1;
-	private String result = "";
 	private Scanner scan = new Scanner(System.in);
 	private boolean developper;
 	private boolean running = true;
@@ -90,12 +89,14 @@ public class Mastermind {
 		}
 
 		do {
-			proposition.resetCode();
 			System.out.println("\nProposition n°" + loop);
 
-			proposition.generateCode();
+			for (int i = 0; i < proposition.getLength(); i++) {
+				System.out.println("Pion " + (i + 1) + " : Noir / Blanc / Jaune / Rouge / Vert / Bleu");
+				proposition.generateCode();
+			}
 
-			if (proposition.toString().equals(answer.toString())) {
+			if (proposition.getElements().equals(answer.getElements())) {
 				System.out.println("Bravo ! Vous avez trouvé le code secret !\nLa réponse était bien : "
 						+ proposition.toString() + "\n");
 				userScore++;
@@ -109,11 +110,16 @@ public class Mastermind {
 					break;
 				} else {
 					ComparatorColor userComparator = new ComparatorColor(proposition);
-					userComparator.compareTo(answer);
-					System.out.println("Le code n'est pas bon !\nProposition : " + proposition.toString()
-							+ " -> Réponse : " + result);
+					try {
+						System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString() + "\n" 
+								+ userComparator.compareTo(answer));
+					} catch (Exception e) {
+						System.out.println("Il y a eu un problème dans votre réponse, votre proposition n'a pas été prise en compte");
+					}
 					loop++;
 				}
+				
+				proposition.resetCode();
 			}
 		} while (loop < 5);
 		return;
@@ -132,35 +138,39 @@ public class Mastermind {
 
 		System.out.println("\nQuel sera votre code secret ?");
 
-		answer.generateCode();
+		for (int i = 0; i < answer.getLength(); i++) {
+			System.out.println("Pion " + (i + 1) + " : Noir / Blanc / Jaune / Rouge / Vert / Bleu");
+			answer.generateCode();
+		}
 
-		System.out.println("Vous avez défini le code : " + answer.toString());
+		System.out.println("\nVous avez défini le code : " + answer.toString());
 
 		do {
+			proposition.resetCode();
 			proposition.generateCode();
-			System.out.println("\nL'ordinateur propose le code : " + proposition.toString());
+			System.out.println("\nProposition n°" + loop + "\nL'ordinateur propose le code : " + proposition.toString());
 
-			if (proposition.toString().equals(answer.toString())) {
+			if (proposition.getElements().equals(answer.getElements())) {
 				System.out.println(
 						"L'ordinateur a trouvé le code secret !\nLa réponse était bien : " + proposition.toString());
 				npcScore++;
-				loop = 5;
 				break;
 			} else {
-				if (loop > 3) {
+				if (loop == 4) {
 					System.out.println("L'ordinateur n'a pas trouvé votre code : " + answer.toString() + "\n");
 					userScore++;
-					loop = 5;
 					break;
 				} else {
 					ComparatorColor npcComparator = new ComparatorColor(proposition);
-					npcComparator.compareTo(answer);
-					System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString()
-							+ " -> Réponse : " + result);
-					proposition.generateCode();
+					try {
+						System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString() + "\n" 
+								+ npcComparator.compareTo(answer));
+					} catch (Exception e) {
+						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						break;
+					}
+					loop++;
 				}
-
-				loop++;
 			}
 		} while (loop < 5);
 		return;

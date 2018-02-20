@@ -1,5 +1,7 @@
 package com.antazri.main.mastermind;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
@@ -17,12 +19,22 @@ public abstract class AbstractCodeColor implements Code<CoinColor> {
 	}
 
 	public List<CoinColor> getElements() {
-		return elements;
+		return this.elements;
+	}
+	
+	public int getLength() {
+		return this.length;
 	}
 
 	public void addWrongColor(int index, CoinColor color) {
 		List<CoinColor> colors = this.wrongColors.get(index);
 		colors.add(color);
+		this.wrongColors.put(index, colors);
+	}
+	
+	public void addAllWrongColor(int index, CoinColor color) {
+		List<CoinColor> colors = this.allColors();
+		colors.remove(color);
 		this.wrongColors.put(index, colors);
 	}
 	
@@ -39,12 +51,17 @@ public abstract class AbstractCodeColor implements Code<CoinColor> {
 	public void resetCode() {
 		this.getElements().clear();
 	}
+	
+	public List<CoinColor> allColors() {
+		List<CoinColor> allColors = new ArrayList<CoinColor>(EnumSet.allOf(CoinColor.class));
+		return allColors;
+	}
 
 	@Override
 	public String toString() {
 		String description = "";
 		for (CoinColor element : elements) {
-			description += element.toString() + " ";
+			description += element + " ";
 		}
 		return description;
 	}

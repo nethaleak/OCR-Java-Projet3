@@ -29,11 +29,11 @@ public class ComparatorColor implements Comparator<AbstractCodeColor> {
 	}
 	
 	public int getRightPieces() {
-		return rightPieces;
+		return this.rightPieces;
 	}
 
 	public int getPresentPieces() {
-		return presentPieces;
+		return this.presentPieces;
 	}
 
 	@Override
@@ -41,9 +41,9 @@ public class ComparatorColor implements Comparator<AbstractCodeColor> {
 		this.presentPieces = 0;
 		this.rightPieces = 0;
 		
-			for (int i = 0; i < answer.length; i++) {
-				for(int j = 0; j < code.length; j++) {
-					if(answer.getElements().get(i).equals(code.getElements().get(j))) {
+			for (int i = 0; i < code.getLength(); i++) {
+				for(int j = 0; j < answer.getLength(); j++) {
+					if(code.getElements().get(i).equals(answer.getElements().get(j))) {
 						this.presentPieces++;
 						break;
 					}
@@ -51,8 +51,9 @@ public class ComparatorColor implements Comparator<AbstractCodeColor> {
 			}
 			
 			for (int i = 0; i < code.length; i++) {
-				if(answer.getElements().get(i).equals(code.getElements().get(i))) {
+				if(code.getElements().get(i).equals(answer.getElements().get(i))) {
 					this.rightPieces++;
+					code.addAllWrongColor(i, code.getElements().get(i));
 				}
 				else {
 					code.addWrongColor(i, code.getElements().get(i));

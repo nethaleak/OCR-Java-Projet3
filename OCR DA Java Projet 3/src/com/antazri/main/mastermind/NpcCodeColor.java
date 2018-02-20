@@ -1,7 +1,6 @@
 package com.antazri.main.mastermind;
 
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class NpcCodeColor extends AbstractCodeColor {
 		this.length = length;
 		this.elements = new ArrayList<CoinColor>();
 		this.wrongColors = new HashMap<>();
-		
+
 		for (int i = 0; i < this.length; i++) {
 			List<CoinColor> colors = new ArrayList<>();
 			Integer x = new Integer(i);
@@ -23,21 +22,15 @@ public class NpcCodeColor extends AbstractCodeColor {
 
 	@Override
 	public void generateCode() {
-		for (int i = 0; i < 4; i++) {
-			CoinColor color = allColors().get((int) Math.floor(Math.random() * allColors().size()));
+		for (int i = 0; i < this.getLength(); i++) {
 			List<CoinColor> listWrongColors = this.wrongColors.get(i);
-			for (CoinColor wrongColor : listWrongColors) {
-				if (color != wrongColor) {
-					this.addElement(color);
-					break;
-				}
-			}
+			CoinColor color;
+
+			do {
+				color = allColors().get((int) Math.floor(Math.random() * allColors().size()));
+			} while (listWrongColors.contains(color));
+
+			this.addElement(color);
 		}
 	}
-	
-	public List<CoinColor> allColors() {
-		List<CoinColor> allColors = new ArrayList<CoinColor>(EnumSet.allOf(CoinColor.class));
-		return allColors;
-	}
-
 }
