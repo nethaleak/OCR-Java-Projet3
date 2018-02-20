@@ -11,6 +11,7 @@ public class Main {
 	private static boolean running = true;
 	private static Scanner scan = new Scanner(System.in);
 	private static int game = -1;
+	private static boolean developper = true;
 
 	public Main() {
 
@@ -28,12 +29,12 @@ public class Main {
 					switch (game) {
 
 					case 1:
-						CodeSearch codeGame = new CodeSearch(true);
+						CodeSearch codeGame = new CodeSearch(developper);
 						codeGame.run();
 						break;
 
 					case 2:
-						Mastermind mastermind = new Mastermind(true);
+						Mastermind mastermind = new Mastermind(developper);
 						mastermind.run();
 						break;
 

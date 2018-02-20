@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class Mastermind {
 
-	private CodePieces proposition = new CodePieces();
-	private CodePieces answer = new CodePieces();
+	private AbstractCodeColor proposition;
+	private AbstractCodeColor answer;
 	private int loop = 1;
 	private String result = "";
 	private Scanner scan = new Scanner(System.in);
@@ -79,12 +79,12 @@ public class Mastermind {
 	 * Challenge Mode : the user has to find the right combination
 	 */
 	public void runChallenge() {
-		proposition.resetCode();
-		answer.resetCode();
+		proposition = new UserCodeColor(4);
+		answer = new NpcCodeColor(4);
 		loop = 1;
 		System.out.println("Votre mission est de trouver le code secret généré par votre adversaire ! \n"
 				+ "Vous aurez en tout 4 essais. Bonne chance !\n=========================================");
-		answer.automaticProposition();
+		answer.generateCode();
 		if (developper) {
 			System.out.println("(Le code généré est : " + answer.toString() + ")");
 		}
@@ -93,7 +93,7 @@ public class Mastermind {
 			proposition.resetCode();
 			System.out.println("\nProposition n°" + loop);
 
-			proposition.generateUserProposition();
+			proposition.generateCode();
 
 			if (proposition.toString().equals(answer.toString())) {
 				System.out.println("Bravo ! Vous avez trouvé le code secret !\nLa réponse était bien : "
@@ -108,7 +108,8 @@ public class Mastermind {
 					loop = 5;
 					break;
 				} else {
-					result = proposition.compare(answer.getElements());
+					ComparatorColor userComparator = new ComparatorColor(proposition);
+					userComparator.compareTo(answer);
 					System.out.println("Le code n'est pas bon !\nProposition : " + proposition.toString()
 							+ " -> Réponse : " + result);
 					loop++;
@@ -123,20 +124,20 @@ public class Mastermind {
 	 */
 	public void runDefense() {
 		loop = 1;
-		proposition.resetCode();
-		answer.resetCode();
+		proposition = new NpcCodeColor(4);
+		answer = new UserCodeColor(4);
 		System.out
 				.println("Votre mission est de définir un code secret que votre adversaire l'ordinateur devra trouver !"
 						+ "\n=========================================");
 
 		System.out.println("\nQuel sera votre code secret ?");
 
-		answer.generateUserProposition();
+		answer.generateCode();
 
 		System.out.println("Vous avez défini le code : " + answer.toString());
 
 		do {
-			proposition.automaticProposition();
+			proposition.generateCode();
 			System.out.println("\nL'ordinateur propose le code : " + proposition.toString());
 
 			if (proposition.toString().equals(answer.toString())) {
@@ -152,10 +153,11 @@ public class Mastermind {
 					loop = 5;
 					break;
 				} else {
-					result = proposition.compare(answer.getElements());
+					ComparatorColor npcComparator = new ComparatorColor(proposition);
+					npcComparator.compareTo(answer);
 					System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString()
 							+ " -> Réponse : " + result);
-					proposition.generateNpcProposition(answer.getElements());
+					proposition.generateCode();
 				}
 
 				loop++;

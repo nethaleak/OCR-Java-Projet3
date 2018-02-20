@@ -22,12 +22,8 @@ public abstract class AbstractCodeInteger implements Code<Integer> {
 		return length;
 	}
 	
-	public int[][] getBornes() {
-		return bornes;
-	}
-	
-	public void setBornes(int[][] bornes) {
-		this.bornes = bornes;
+	public void setBornes(int index, int borne, Integer valeur) {
+		this.bornes[index][borne] = valeur;
 	}
 	
 	@Override

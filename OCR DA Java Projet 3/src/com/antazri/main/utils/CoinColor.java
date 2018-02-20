@@ -1,6 +1,6 @@
 package com.antazri.main.utils;
 
-public enum PieceColor {
+public enum CoinColor {
 	WHITE ("Blanc"),
 	BLACK ("Noir"),
 	BLUE ("Bleu"),
@@ -10,7 +10,7 @@ public enum PieceColor {
 	
 	private String name;
 	
-	PieceColor(String name) {
+	CoinColor(String name) {
 		this.name = name;
 	}
 	
