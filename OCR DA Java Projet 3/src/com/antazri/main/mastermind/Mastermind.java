@@ -1,10 +1,14 @@
 package com.antazri.main.mastermind;
 
 import java.util.InputMismatchException;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Mastermind {
-
+	
+	private ResourceBundle bundle = ResourceBundle.getBundle("ressources.config.properties");
+	private int codeLength = Integer.parseInt(bundle.getString("mastermind.length"));
+	private int maxLoop = Integer.parseInt(bundle.getString("mastermind.maxloop"));
 	private AbstractCodeColor proposition;
 	private AbstractCodeColor answer;
 	private int loop = 1;
@@ -78,8 +82,8 @@ public class Mastermind {
 	 * Challenge Mode : the user has to find the right combination
 	 */
 	public void runChallenge() {
-		proposition = new UserCodeColor(4);
-		answer = new NpcCodeColor(4);
+		proposition = new UserCodeColor(codeLength);
+		answer = new NpcCodeColor(codeLength);
 		loop = 1;
 		System.out.println("Votre mission est de trouver le code secret généré par votre adversaire ! \n"
 				+ "Vous aurez en tout 4 essais. Bonne chance !\n=========================================");
@@ -100,13 +104,11 @@ public class Mastermind {
 				System.out.println("Bravo ! Vous avez trouvé le code secret !\nLa réponse était bien : "
 						+ proposition.toString() + "\n");
 				userScore++;
-				loop = 5;
 				break;
 			} else {
-				if (loop == 4) {
+				if (loop == maxLoop) {
 					System.out.println("Raté !\nLe code était : " + answer.toString() + "\n");
 					npcScore++;
-					loop = 5;
 					break;
 				} else {
 					ComparatorColor userComparator = new ComparatorColor(proposition);
@@ -121,7 +123,7 @@ public class Mastermind {
 				
 				proposition.resetCode();
 			}
-		} while (loop < 5);
+		} while (loop < (maxLoop + 1));
 		return;
 	}
 
@@ -130,8 +132,8 @@ public class Mastermind {
 	 */
 	public void runDefense() {
 		loop = 1;
-		proposition = new NpcCodeColor(4);
-		answer = new UserCodeColor(4);
+		proposition = new NpcCodeColor(codeLength);
+		answer = new UserCodeColor(codeLength);
 		System.out
 				.println("Votre mission est de définir un code secret que votre adversaire l'ordinateur devra trouver !"
 						+ "\n=========================================");
@@ -156,7 +158,7 @@ public class Mastermind {
 				npcScore++;
 				break;
 			} else {
-				if (loop == 4) {
+				if (loop == maxLoop) {
 					System.out.println("L'ordinateur n'a pas trouvé votre code : " + answer.toString() + "\n");
 					userScore++;
 					break;
@@ -172,7 +174,7 @@ public class Mastermind {
 					loop++;
 				}
 			}
-		} while (loop < 5);
+		} while (loop < (maxLoop + 1));
 		return;
 	}
 
@@ -192,7 +194,7 @@ public class Mastermind {
 		do {
 			System.out.println("Le score est de :\nJoueur " + this.userScore + " / " + this.npcScore + " Ordinateur");
 
-			if (Math.random() < 0.5) {
+			if (loop % 2 == 0) {
 				System.out.println("\n=========================================\n" + "Manche n°" + this.loop + ""
 						+ "Mode Challenge !");
 				this.runChallenge();

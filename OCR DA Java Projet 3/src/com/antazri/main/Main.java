@@ -1,17 +1,20 @@
 package com.antazri.main;
 
 import java.util.InputMismatchException;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import com.antazri.main.code.CodeSearch;
 import com.antazri.main.mastermind.Mastermind;
 
 public class Main {
-
+	
+	private static ResourceBundle bundle = ResourceBundle.getBundle("ressources.config.properties");
+	private static String devMode = bundle.getString("mastermind.length");
 	private static boolean running = true;
 	private static Scanner scan = new Scanner(System.in);
 	private static int game = -1;
-	private static boolean developper = true;
+	private static boolean developper = Boolean.parseBoolean(devMode);
 
 	public Main() {
 
