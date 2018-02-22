@@ -8,9 +8,9 @@ import com.antazri.main.code.CodeSearch;
 import com.antazri.main.mastermind.Mastermind;
 
 public class Main {
-	
-	private static ResourceBundle bundle = ResourceBundle.getBundle("ressources.config.properties");
-	private static String devMode = bundle.getString("mastermind.length");
+
+	private static ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.ressources.config");
+	private static String devMode = bundle.getString("mode.developper");
 	private static boolean running = true;
 	private static Scanner scan = new Scanner(System.in);
 	private static int game = -1;

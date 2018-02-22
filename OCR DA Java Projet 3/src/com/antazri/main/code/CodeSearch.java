@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class CodeSearch {
 
-	private ResourceBundle bundle = ResourceBundle.getBundle("ressources.config.properties");
-	private int maxLoop = Integer.parseInt(bundle.getString("codesearch.try"));
-	private int codeLength = Integer.parseInt(bundle.getString("codesearch.length"));
+	private ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.ressources.config");
+	private int maxLoop = Integer.parseInt(bundle.getString("codesearch.maxloop"));
+	private int codeLength = Integer.parseInt(bundle.getString("codesearch.codelength"));
 	private AbstractCodeInteger proposition;
 	private AbstractCodeInteger answer;
 	private int loop = 0;
@@ -36,7 +36,7 @@ public class CodeSearch {
 				System.out.println(
 						"========================================\nBienvenue dans le jeu Code Search\n========================================\n"
 								+ "1 - Mode Challenger\n" + "2 - Mode Defender\n" + "3 - Mode Duel\n"
-								+ "0 - Quitter le jeu\n" + "A quel mode voulez-vous jouer ?");
+								+ "4 - Mode Match\n" + "0 - Quitter le jeu\n" + "A quel mode voulez-vous jouer ?");
 				try {
 					game = scan.nextInt();
 					switch (game) {
@@ -57,6 +57,12 @@ public class CodeSearch {
 						System.out
 								.println("=========================================\nC'est parti pour le mode Duel !");
 						this.runDuel();
+						break;
+
+					case 4:
+						System.out
+								.println("=========================================\nC'est parti pour le mode Duel !");
+						this.runMatch();
 						break;
 
 					case 0:
@@ -174,6 +180,87 @@ public class CodeSearch {
 	 * Duel Mode : the user challenges the npc
 	 */
 	public void runDuel() {
+		loop = 1;
+		AbstractCodeInteger userProp = new UserCodeInteger(codeLength);
+		AbstractCodeInteger userAnswer = new UserCodeInteger(codeLength);
+		AbstractCodeInteger npcProp = new NpcCodeInteger(codeLength);
+		AbstractCodeInteger npcAnswer = new NpcCodeInteger(codeLength);
+
+		System.out.println("Vous entrez en mode duel : le premier joueur à trouver le code adverse gagne !\n"
+				+ "Vous disposez de 4 tours, chaque joueur répond l'un après l'autre."
+				+ "\n=========================================");
+
+		System.out.println("\nQuel sera votre code secret ?");
+
+		for (int i = 0; i < userAnswer.getLength(); i++) {
+			System.out.println("Chiffre n°" + (i + 1));
+			userAnswer.generateCode();
+		}
+
+		npcAnswer.generateCode();
+
+		if (developper) {
+			System.out.println("( + votre code est : " + userAnswer.toString() + ")");
+			System.out.println("( + le code du NPC est : " + npcAnswer.toString() + ")");
+		}
+
+		do {
+			System.out.println("\nTour n°" + loop);
+
+			for (int i = 0; i < userProp.getLength(); i++) {
+				System.out.println("Chiffre n°" + (i + 1));
+				userProp.generateCode();
+			}
+
+			if (loop < maxLoop) {
+				if (userProp.getElements().equals(npcAnswer.getElements())) {
+					System.out.println(
+							"Vous avez trouvé le code secret !\nLa réponse était bien : " + userProp.toString());
+					break;
+				} else {
+					try {
+						ComparatorInteger userComparator = new ComparatorInteger(userProp);
+						System.out.println("Votre code n'est pas bon ! Proposition : " + userProp.toString() + "\n"
+								+ userComparator.compareTo(npcAnswer));
+					} catch (Exception e) {
+						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						break;
+					}
+				}
+
+				npcProp.generateCode();
+
+				if (npcProp.getElements().equals(userAnswer.getElements())) {
+					System.out.println(
+							"L'ordinateur a trouvé le code secret !\nLa réponse était bien : " + npcProp.toString());
+					break;
+				} else {
+					try {
+						ComparatorInteger npcComparator = new ComparatorInteger(npcProp);
+						System.out.println("Le code du NPC n'est pas bon ! Proposition : " + npcProp.toString() + "\n"
+								+ npcComparator.compareTo(userAnswer));
+					} catch (Exception e) {
+						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						break;
+					}
+				}
+			}
+
+			userProp.resetCode();
+			npcProp.resetCode();
+			loop++;
+
+		} while (loop < (maxLoop + 1));
+		
+		if (!userProp.getElements().equals(npcAnswer.getElements()) && !npcProp.getElements().equals(userAnswer.getElements())) {
+			System.out.println("Personne n'a trouvé le code, c'est un match nul !");
+		}
+	}
+
+	/*
+	 * Match Mode : the user challenges the npc
+	 */
+	public void runMatch() {
 		userScore = 0;
 		npcScore = 0;
 		loop = 1;

@@ -5,10 +5,10 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class Mastermind {
-	
-	private ResourceBundle bundle = ResourceBundle.getBundle("ressources.config.properties");
-	private int codeLength = Integer.parseInt(bundle.getString("mastermind.length"));
+
+	private ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.ressources.config");
 	private int maxLoop = Integer.parseInt(bundle.getString("mastermind.maxloop"));
+	private int codeLength = Integer.parseInt(bundle.getString("mastermind.codelength"));
 	private AbstractCodeColor proposition;
 	private AbstractCodeColor answer;
 	private int loop = 1;
@@ -34,7 +34,7 @@ public class Mastermind {
 				System.out.println(
 						"========================================\nBienvenue dans le jeu Mastermind\n========================================\n"
 								+ "1 - Mode Challenger\n" + "2 - Mode Defender\n" + "3 - Mode Duel\n"
-								+ "0 - Quitter le jeu\n" + "A quel mode voulez-vous jouer ?");
+								+ "4 - Mode Match\n" + "0 - Quitter le jeu\n" + "A quel mode voulez-vous jouer ?");
 				try {
 					game = scan.nextInt();
 					switch (game) {
@@ -55,6 +55,12 @@ public class Mastermind {
 						System.out
 								.println("=========================================\nC'est parti pour le mode Duel !");
 						this.runDuel();
+						break;
+
+					case 4:
+						System.out
+								.println("=========================================\nC'est parti pour le mode Match !");
+						this.runMatch();
 						break;
 
 					case 0:
@@ -113,14 +119,15 @@ public class Mastermind {
 				} else {
 					ComparatorColor userComparator = new ComparatorColor(proposition);
 					try {
-						System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString() + "\n" 
+						System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString() + "\n"
 								+ userComparator.compareTo(answer));
 					} catch (Exception e) {
-						System.out.println("Il y a eu un problème dans votre réponse, votre proposition n'a pas été prise en compte");
+						System.out.println(
+								"Il y a eu un problème dans votre réponse, votre proposition n'a pas été prise en compte");
 					}
 					loop++;
 				}
-				
+
 				proposition.resetCode();
 			}
 		} while (loop < (maxLoop + 1));
@@ -150,7 +157,8 @@ public class Mastermind {
 		do {
 			proposition.resetCode();
 			proposition.generateCode();
-			System.out.println("\nProposition n°" + loop + "\nL'ordinateur propose le code : " + proposition.toString());
+			System.out
+					.println("\nProposition n°" + loop + "\nL'ordinateur propose le code : " + proposition.toString());
 
 			if (proposition.getElements().equals(answer.getElements())) {
 				System.out.println(
@@ -165,7 +173,7 @@ public class Mastermind {
 				} else {
 					ComparatorColor npcComparator = new ComparatorColor(proposition);
 					try {
-						System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString() + "\n" 
+						System.out.println("Le code n'est pas bon ! Proposition : " + proposition.toString() + "\n"
 								+ npcComparator.compareTo(answer));
 					} catch (Exception e) {
 						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
@@ -182,6 +190,87 @@ public class Mastermind {
 	 * Duel Mode : the user challenges the npc
 	 */
 	public void runDuel() {
+		loop = 1;
+		AbstractCodeColor userProp = new UserCodeColor(codeLength);
+		AbstractCodeColor userAnswer = new UserCodeColor(codeLength);
+		AbstractCodeColor npcProp = new NpcCodeColor(codeLength);
+		AbstractCodeColor npcAnswer = new NpcCodeColor(codeLength);
+
+		System.out.println("Vous entrez en mode duel : le premier joueur à trouver le code adverse gagne !\n"
+				+ "Vous disposez de 4 tours, chaque joueur répond l'un après l'autre."
+				+ "\n=========================================");
+
+		System.out.println("\nQuel sera votre code secret ?");
+
+		for (int i = 0; i < userAnswer.getLength(); i++) {
+			System.out.println("Pion " + (i + 1) + " : Noir / Blanc / Jaune / Rouge / Vert / Bleu");
+			userAnswer.generateCode();
+		}
+
+		npcAnswer.generateCode();
+
+		if (developper) {
+			System.out.println("( + votre code est : " + userAnswer.toString() + ")");
+			System.out.println("( + le code du NPC est : " + npcAnswer.toString() + ")");
+		}
+
+		do {
+			System.out.println("Tour n°" + loop);
+
+			for (int i = 0; i < userProp.getLength(); i++) {
+				System.out.println("Pion " + (i + 1) + " : Noir / Blanc / Jaune / Rouge / Vert / Bleu");
+				userProp.generateCode();
+			}
+
+			if (loop < maxLoop) {
+				if (userProp.getElements().equals(npcAnswer.getElements())) {
+					System.out.println(
+							"Vous avez trouvé le code secret !\nLa réponse était bien : " + userProp.toString());
+					break;
+				} else {
+					try {
+						ComparatorColor userComparator = new ComparatorColor(userProp);
+						System.out.println("Votre code n'est pas bon ! Proposition : " + userProp.toString() + "\n"
+								+ userComparator.compareTo(npcAnswer));
+					} catch (Exception e) {
+						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						break;
+					}
+				}
+
+				npcProp.generateCode();
+
+				if (npcProp.getElements().equals(userAnswer.getElements())) {
+					System.out.println(
+							"L'ordinateur a trouvé le code secret !\nLa réponse était bien : " + npcProp.toString());
+					break;
+				} else {
+					try {
+						ComparatorColor npcComparator = new ComparatorColor(npcProp);
+						System.out.println("Le code du NPC n'est pas bon ! Proposition : " + npcProp.toString() + "\n"
+								+ npcComparator.compareTo(userAnswer));
+					} catch (Exception e) {
+						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						break;
+					}
+				}
+			}
+			
+			userProp.resetCode();
+			npcProp.resetCode();
+			loop++;
+
+		} while (loop < (maxLoop + 1));
+		
+		if (!userProp.getElements().equals(npcAnswer.getElements()) && !npcProp.getElements().equals(userAnswer.getElements())) {
+			System.out.println("Personne n'a trouvé le code, c'est un match nul !");
+		}
+	}
+
+	/*
+	 * Match Mode : the user challenges the npc
+	 */
+	public void runMatch() {
 		userScore = 0;
 		npcScore = 0;
 		loop = 1;
@@ -215,8 +304,6 @@ public class Mastermind {
 		} else {
 			System.out.println("Houston, we have a problem");
 		}
-
-		return;
 	}
 
 }
