@@ -4,6 +4,16 @@ import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+/**
+ * Mastermind.java est la classe principale du jeu Mastermind. Elle charge tous
+ * les paramètres et classes nécessaires au fonctionnement du jeu lors de son
+ * initialisation dans Main.java et dont le but est de trouver un code secret à
+ * X couleurs.
+ * 
+ * @author AnthonyT
+ * @version 1.0
+ */
+
 public class Mastermind {
 
 	private ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.ressources.config");
@@ -19,14 +29,25 @@ public class Mastermind {
 	private int userScore;
 	private int npcScore;
 
+	/**
+	 * Constructeur de l'objet Mastermind.
+	 * 
+	 * @param developper
+	 *            permet d'activer le mode "developper" (affichage des résultats)
+	 */
 	public Mastermind(boolean developper) {
 		super();
 
 		this.developper = developper;
 	}
 
-	/*
-	 * Run : user has to chose the type (Defense or Challenge or Duel)
+	/**
+	 * Méthode d'initialisation du jeu, appelée dès la création d'un objet
+	 * CodeSearch dans Main.java.
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
+	 *             entier
 	 */
 	public void run() {
 		while (running) {
@@ -84,8 +105,15 @@ public class Mastermind {
 		}
 	}
 
-	/*
-	 * Challenge Mode : the user has to find the right combination
+	/**
+	 * Méthode du mode de jeu Challenger : le joueur doit trouver le code secret de
+	 * l'adversaire non-joueur (NPC) généré automatiquement via une méthode dans
+	 * NpcCodeColor.java. Les valeurs sont ensuite comparées via la méthode
+	 * compareTo de l'objet ComparatorColor.
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilisateur de saisit pas un
+	 *             entier
 	 */
 	public void runChallenge() {
 		proposition = new UserCodeColor(codeLength);
@@ -134,8 +162,15 @@ public class Mastermind {
 		return;
 	}
 
-	/*
-	 * Defense Mode : the npc has to find the right combination
+	/**
+	 * Méthode du mode de jeu Defender : l'adversaire non-joueur (NPC) doit trouver le code
+	 * défini par le joueur dans une boucle appelant la méthode de génération de
+	 * code dans UserCodeColor.java. Les valeurs sont ensuite comparés via la
+	 * méthode compareTo de l'objet ComparatorColor.
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
+	 *             entier
 	 */
 	public void runDefense() {
 		loop = 1;
@@ -186,8 +221,16 @@ public class Mastermind {
 		return;
 	}
 
-	/*
-	 * Duel Mode : the user challenges the npc
+	/**
+	 * Méthode du mode de jeu Duel : le joueur et l'adversaire non-joueur (NPC) définissent
+	 * chacun leur code et doivent trouver le code adverse en premier. Les codes
+	 * sont générés par des méthodes generateCode définies dans UserCodeColor.java et
+	 * NpcCodeColor.java. A chaque tour les valeurs sont comparées via des
+	 * méthodes compareTo d'objets ComparatorColor.
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
+	 *             entier.
 	 */
 	public void runDuel() {
 		loop = 1;
@@ -255,20 +298,26 @@ public class Mastermind {
 					}
 				}
 			}
-			
+
 			userProp.resetCode();
 			npcProp.resetCode();
 			loop++;
 
 		} while (loop < (maxLoop + 1));
-		
-		if (!userProp.getElements().equals(npcAnswer.getElements()) && !npcProp.getElements().equals(userAnswer.getElements())) {
+
+		if (!userProp.getElements().equals(npcAnswer.getElements())
+				&& !npcProp.getElements().equals(userAnswer.getElements())) {
 			System.out.println("Personne n'a trouvé le code, c'est un match nul !");
 		}
 	}
 
-	/*
-	 * Match Mode : the user challenges the npc
+	/**
+	 * Méthode du mode de jeu Match : le joueur et l'adversaire non-joueur non-joueur (NPC) jouent à l'un
+	 * de smodes Defender ou Challenger selon le résultat de Math.random().
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
+	 *             entier.
 	 */
 	public void runMatch() {
 		userScore = 0;

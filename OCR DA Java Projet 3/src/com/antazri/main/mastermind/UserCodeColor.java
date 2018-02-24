@@ -1,21 +1,37 @@
 package com.antazri.main.mastermind;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
 
 import com.antazri.main.utils.CoinColor;
 
+/**
+ * NpcCodeColor est une classe fille de AbstractCodeColor, elle permet de créer
+ * des objets NpcCodeColor dédié à la création de code par l'adversaire (NPC).
+ * 
+ * @author AnthonyT
+ * @version 1.0
+ */
+
 public class UserCodeColor extends AbstractCodeColor {
 
+	/**
+	 * Le contructeur de l'objet initialise ses attributs List "elements", qui
+	 * contient le code, et LinkedHashMap "wrongColors".
+	 * 
+	 * @param length
+	 *            Length défini la longueur du code (ce paramètre est spécifié dans
+	 *            le fichier config.propertes)
+	 */
 	public UserCodeColor(int length) {
 		super();
 
 		this.length = length;
 		this.elements = new ArrayList<CoinColor>();
-		this.wrongColors = new HashMap<>();
+		this.wrongColors = new LinkedHashMap<>();
 
 		for (int i = 0; i < this.length; i++) {
 			List<CoinColor> colors = new ArrayList<>();
@@ -24,6 +40,12 @@ public class UserCodeColor extends AbstractCodeColor {
 		}
 	}
 
+	/**
+	 * La méthode generateCode() est défini dans l'interface Code mais décrite dans
+	 * les classes filles. Cette permet de générer un élément du code du joueur via
+	 * un objet Scanner dans une boucle switch.
+	 * @throws InputMismatchException Une exception peut être levée en cas de mauvaise entrée dans l'objet Scanner scan
+	 */
 	@Override
 	public void generateCode() {
 		@SuppressWarnings("resource")

@@ -4,6 +4,16 @@ import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+/**
+ * CodeSearch.java est la classe principale du jeu CodeSearch. Elle charge tous
+ * les paramètres et classes nécessaires au fonctionnement du jeu lors de son
+ * initialisation dans Main.java et dont le but est de trouver un code secret
+ * à X chiffres.
+ * 
+ * @author AnthonyT
+ * @version 1.0
+ */
+
 public class CodeSearch {
 
 	private ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.ressources.config");
@@ -19,6 +29,12 @@ public class CodeSearch {
 	private int userScore = 0;
 	private int npcScore = 0;
 
+	/**
+	 * Constructeur de l'objet CodeSearch.
+	 * 
+	 * @param developper
+	 *            permet d'activer le mode "developper" (affichage des résultats).
+	 */
 	public CodeSearch(boolean developper) {
 		super();
 
@@ -27,8 +43,13 @@ public class CodeSearch {
 		run();
 	}
 
-	/*
-	 * Run : user has to chose the type (Defense or Challenge or Duel)
+	/**
+	 * Méthode d'initialisation du jeu, appelée dès la création d'un objet
+	 * CodeSearch dans Main.java.
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
+	 *             entier.
 	 */
 	public void run() {
 		while (running) {
@@ -86,8 +107,15 @@ public class CodeSearch {
 		}
 	}
 
-	/*
-	 * Defense Mode : the user has to find the right code
+	/**
+	 * Méthode du mode de jeu Challenger : le joueur doit trouver le code secret de
+	 * l'adversaire non-joueur (NPC) généré automatiquement via une méthode dans
+	 * NpcCodeInteger.java. Les valeurs sont ensuite comparées via la méthode
+	 * compareTo de l'objet ComparatorInteger.
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilisateur de saisit pas un
+	 *             entier.
 	 */
 	public void runChallenge() {
 		proposition = new UserCodeInteger(codeLength);
@@ -130,8 +158,15 @@ public class CodeSearch {
 		return;
 	}
 
-	/*
-	 * Challenger Mode : The user defines the code
+	/**
+	 * Méthode du mode de jeu Defender : l'adversaire non-joueur (NPC) doit trouver le code
+	 * défini par le joueur dans une boucle appelant la méthode de génération de
+	 * code dans UserCodeInteger.java. Les valeurs sont ensuite comparés via la
+	 * méthode compareTo de l'objet ComparatorInteger.
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
+	 *             entier.
 	 */
 	public void runDefense() {
 		loop = 1;
@@ -176,8 +211,16 @@ public class CodeSearch {
 		} while (loop < (maxLoop + 1));
 	}
 
-	/*
-	 * Duel Mode : the user challenges the npc
+	/**
+	 * Méthode du mode de jeu Duel : le joueur et l'adversaire non-joueur (NPC) définissent
+	 * chacun leur code et doivent trouver le code adverse en premier. Les codes
+	 * sont générés par des méthodes définies dans UserCodeInteger.java et
+	 * NpcCodeInteger.java. A chaque tour les valeurs sont comparées via des
+	 * méthodes compareTo d'objets ComparatorInteger.
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
+	 *             entier.
 	 */
 	public void runDuel() {
 		loop = 1;
@@ -251,14 +294,20 @@ public class CodeSearch {
 			loop++;
 
 		} while (loop < (maxLoop + 1));
-		
-		if (!userProp.getElements().equals(npcAnswer.getElements()) && !npcProp.getElements().equals(userAnswer.getElements())) {
+
+		if (!userProp.getElements().equals(npcAnswer.getElements())
+				&& !npcProp.getElements().equals(userAnswer.getElements())) {
 			System.out.println("Personne n'a trouvé le code, c'est un match nul !");
 		}
 	}
 
-	/*
-	 * Match Mode : the user challenges the npc
+	/**
+	 * Méthode du mode de jeu Match : le joueur et l'adversaire non-joueur non-joueur (NPC) jouent à l'un
+	 * de smodes Defender ou Challenger selon le résultat de Math.random().
+	 * 
+	 * @throws InputMismatchException
+	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
+	 *             entier.
 	 */
 	public void runMatch() {
 		userScore = 0;
@@ -271,7 +320,7 @@ public class CodeSearch {
 		do {
 			System.out.println("Le score est de :\nJoueur " + this.userScore + " / " + this.npcScore + " Ordinateur");
 
-			if (loop % 2 == 0) {
+			if (Math.random() < 0.5) {
 				System.out.println("\n=========================================\n" + "Manche n°" + this.loop + ""
 						+ "Mode Challenge !");
 				this.runChallenge();

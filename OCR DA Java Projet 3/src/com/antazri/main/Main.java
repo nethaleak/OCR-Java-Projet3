@@ -7,8 +7,14 @@ import java.util.Scanner;
 import com.antazri.main.code.CodeSearch;
 import com.antazri.main.mastermind.Mastermind;
 
-public class Main {
+/**
+ * Classe principale du programme, elle permet de lancer les différents jeux présents dans l'application : CodeSearch et Mastermind.
+ * @author AnthonyT
+ * @version 1.0
+ */
 
+public class Main {
+	
 	private static ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.ressources.config");
 	private static String devMode = bundle.getString("mode.developper");
 	private static boolean running = true;
