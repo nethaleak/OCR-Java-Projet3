@@ -8,7 +8,7 @@ package com.antazri.main.utils;
  * @version 1.0
  */
 
-public abstract interface Code<T> {
+public abstract interface ICode<T> {
 
 	/**
 	 * Cette méthode permet l'ajout d'élément.

@@ -265,7 +265,7 @@ public class Mastermind {
 				userProp.generateCode();
 			}
 
-			if (loop < maxLoop) {
+			if (loop <= maxLoop) {
 				if (userProp.getElements().equals(npcAnswer.getElements())) {
 					System.out.println(
 							"Vous avez trouvé le code secret !\nLa réponse était bien : " + userProp.toString());

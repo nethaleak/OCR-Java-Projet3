@@ -2,7 +2,7 @@ package com.antazri.main.code;
 
 import java.util.List;
 
-import com.antazri.main.utils.Code;
+import com.antazri.main.utils.ICode;
 
 /**
  * AbstractCodeInteger est la classe abstraite définissant les objets
@@ -15,7 +15,7 @@ import com.antazri.main.utils.Code;
  * @version 1.0
  */
 
-public abstract class AbstractCodeInteger implements Code<Integer> {
+public abstract class AbstractCodeInteger implements ICode<Integer> {
 
 	protected List<Integer> elements;
 	protected int length;

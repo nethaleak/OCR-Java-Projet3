@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.antazri.main.utils.CoinColor;
-import com.antazri.main.utils.Comparator;
+import com.antazri.main.utils.IComparator;
 
 /**
  * ComparatorColor est la classe définissant les objets servant à comparer les
@@ -16,7 +16,7 @@ import com.antazri.main.utils.Comparator;
  * @version 1.0
  */
 
-public class ComparatorColor implements Comparator<AbstractCodeColor> {
+public class ComparatorColor implements IComparator<AbstractCodeColor> {
 
 	private AbstractCodeColor code;
 	private int rightPieces = 0;

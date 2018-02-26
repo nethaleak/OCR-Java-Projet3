@@ -1,6 +1,6 @@
 package com.antazri.main.code;
 
-import com.antazri.main.utils.Comparator;
+import com.antazri.main.utils.IComparator;
 
 /**
  * ComparatorInteger est la classe définissant les objets servant à comparer les
@@ -10,7 +10,7 @@ import com.antazri.main.utils.Comparator;
  * @version 1.0
  */
 
-public class ComparatorInteger implements Comparator<AbstractCodeInteger> {
+public class ComparatorInteger implements IComparator<AbstractCodeInteger> {
 
 	private AbstractCodeInteger code;
 

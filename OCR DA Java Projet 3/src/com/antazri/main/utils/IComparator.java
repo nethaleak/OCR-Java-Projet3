@@ -9,7 +9,7 @@ package com.antazri.main.utils;
  */
 
 @FunctionalInterface
-public interface Comparator<T> {
+public interface IComparator<T> {
 
 	/**
 	 * La méthode compareTo permet de définir la manière dont les objets de type T sont comparés.

@@ -5,7 +5,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
-import com.antazri.main.utils.Code;
+import com.antazri.main.utils.ICode;
 import com.antazri.main.utils.CoinColor;
 
 /**
@@ -17,7 +17,7 @@ import com.antazri.main.utils.CoinColor;
  * @version 1.0
  */
 
-public abstract class AbstractCodeColor implements Code<CoinColor> {
+public abstract class AbstractCodeColor implements ICode<CoinColor> {
 
 	protected List<CoinColor> elements;
 	protected int length;
