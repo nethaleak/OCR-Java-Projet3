@@ -1,13 +1,12 @@
 package com.antazri.main;
 
-import java.io.File;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.LoggerContext;
 
 import com.antazri.main.code.CodeSearch;
 import com.antazri.main.mastermind.Mastermind;
@@ -28,12 +27,17 @@ public class Main {
 	private static Scanner scan = new Scanner(System.in);
 	private static int game = -1;
 	private static boolean developper = Boolean.parseBoolean(devMode);
-	private static Logger logger = LogManager.getLogger(Main.class);
+	private static Logger logger = LogManager.getLogger(com.antazri.main.Main.class);
 
 	private Main() {
 	}
 
 	public static void main(String[] args) {
+		try {
+		      DOMConfigurator.configure("log4j2.xml");
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		    }
 		while (running) {
 			do {
 				logger.trace("Lancement du programme");

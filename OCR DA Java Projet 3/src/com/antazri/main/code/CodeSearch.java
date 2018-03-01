@@ -7,8 +7,6 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.antazri.main.Main;
-
 /**
  * CodeSearch.java est la classe principale du jeu CodeSearch. Elle charge tous
  * les paramètres et classes nécessaires au fonctionnement du jeu lors de son
@@ -33,7 +31,7 @@ public class CodeSearch {
 	private int game = -1;
 	private int userScore = 0;
 	private int npcScore = 0;
-	private static Logger logger = LogManager.getLogger(Main.class);
+	private static Logger logger = LogManager.getLogger(com.antazri.main.code.CodeSearch.class);
 
 	/**
 	 * Constructeur de l'objet CodeSearch.
@@ -104,7 +102,7 @@ public class CodeSearch {
 
 				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
-					logger.error("L'utilisateur a entré une donnée non reconnue dans scan.nextInt()");
+					logger.warn("L'utilisateur a rentré une donnée inconnue dans le choix de mode de jeu");
 					scan.next();
 				}
 			} while (game != 0);

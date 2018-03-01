@@ -7,8 +7,6 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.antazri.main.Main;
-
 /**
  * Mastermind.java est la classe principale du jeu Mastermind. Elle charge tous
  * les paramètres et classes nécessaires au fonctionnement du jeu lors de son
@@ -33,7 +31,7 @@ public class Mastermind {
 	private int game = -1;
 	private int userScore;
 	private int npcScore;
-	private static Logger logger = LogManager.getLogger(Main.class);
+	private static Logger logger = LogManager.getLogger(com.antazri.main.mastermind.Mastermind.class);
 
 	/**
 	 * Constructeur de l'objet Mastermind.
@@ -102,6 +100,7 @@ public class Mastermind {
 
 				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
+					logger.warn("L'utilisateur a rentré une donnée inconnue dans le choix de mode de jeu");
 					scan.next();
 				}
 			} while (game != 0);
