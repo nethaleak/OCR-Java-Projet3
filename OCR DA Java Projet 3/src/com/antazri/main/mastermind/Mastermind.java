@@ -4,6 +4,11 @@ import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.antazri.main.Main;
+
 /**
  * Mastermind.java est la classe principale du jeu Mastermind. Elle charge tous
  * les paramètres et classes nécessaires au fonctionnement du jeu lors de son
@@ -16,7 +21,7 @@ import java.util.Scanner;
 
 public class Mastermind {
 
-	private ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.ressources.config");
+	private ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.resources.config");
 	private int maxLoop = Integer.parseInt(bundle.getString("mastermind.maxloop"));
 	private int codeLength = Integer.parseInt(bundle.getString("mastermind.codelength"));
 	private AbstractCodeColor proposition;
@@ -28,6 +33,7 @@ public class Mastermind {
 	private int game = -1;
 	private int userScore;
 	private int npcScore;
+	private static Logger logger = LogManager.getLogger(Main.class);
 
 	/**
 	 * Constructeur de l'objet Mastermind.

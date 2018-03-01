@@ -4,6 +4,11 @@ import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.antazri.main.Main;
+
 /**
  * CodeSearch.java est la classe principale du jeu CodeSearch. Elle charge tous
  * les paramètres et classes nécessaires au fonctionnement du jeu lors de son
@@ -16,7 +21,7 @@ import java.util.Scanner;
 
 public class CodeSearch {
 
-	private ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.ressources.config");
+	private ResourceBundle bundle = ResourceBundle.getBundle("com.antazri.main.resources.config");
 	private int maxLoop = Integer.parseInt(bundle.getString("codesearch.maxloop"));
 	private int codeLength = Integer.parseInt(bundle.getString("codesearch.codelength"));
 	private AbstractCodeInteger proposition;
@@ -28,6 +33,7 @@ public class CodeSearch {
 	private int game = -1;
 	private int userScore = 0;
 	private int npcScore = 0;
+	private static Logger logger = LogManager.getLogger(Main.class);
 
 	/**
 	 * Constructeur de l'objet CodeSearch.
@@ -98,6 +104,7 @@ public class CodeSearch {
 
 				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
+					logger.error("L'utilisateur a entré une donnée non reconnue dans scan.nextInt()");
 					scan.next();
 				}
 			} while (game != 0);

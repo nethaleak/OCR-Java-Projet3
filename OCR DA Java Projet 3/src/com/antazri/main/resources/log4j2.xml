@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="false"
+	xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<Appenders>
+		<Appender>
+			<File name="app-log" fileName="application.log" immediateFlush="true"
+				append="false">
+				<PatternLayout
+					pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+			</File>
+		</Appender>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.antazri.main" level="all" additivity="false">
+			<appenender-ref ref="app-log" level="all" />
+		</Logger>
+		<Root level="all" additivity="false">
+			<AppenderRef ref="app-log" />
+		</Root>
+	</Loggers>
+</Configuration>
