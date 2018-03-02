@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="WARN">
-	<appenders>
-		<File name="logFile" fileName="application.log">
-			<PatternLayout
-				pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-		</File>
-	</appenders>
-
-	<loggers>
-		<root level="ALL">
-			<appender-ref ref="logFile" />
-		</root>
-		<Logger name="com.antazri.main.Main" level="ALL" additivity="false">
-			<AppenderRef ref="logFile" />
-		</Logger>
-		<Logger name="com.antazri.main.code.CodeSearch" level="ALL"
-			additivity="false">
-			<AppenderRef ref="logFile" />
-		</Logger>
-		<Logger name="com.antazri.main.mastermind.Mastermind" level="ALL"
-			additivity="false">
-			<AppenderRef ref="logFile" />
-		</Logger>
-	</loggers>
-</configuration>
+<Configuration status="info">
+    <Appenders>
+        <File name="File" fileName="logs/application.log" immediateFlush="true">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </File>
+    </Appenders>
+    <Loggers>
+    <Logger name="com.antazri.main.mastermind" level="all" additivity="false">
+    			<AppenderRef ref="File"/>
+    		</Logger>
+    		<Logger name="com.antazri.main.code" level="all" additivity="false">
+    			<AppenderRef ref="File"/>
+    		</Logger>
+        <Root level="ALL">
+            <AppenderRef ref="File"/>
+        </Root>
+    </Loggers>
+</Configuration>

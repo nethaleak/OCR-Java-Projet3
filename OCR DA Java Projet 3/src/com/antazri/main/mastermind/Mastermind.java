@@ -31,7 +31,7 @@ public class Mastermind {
 	private int game = -1;
 	private int userScore;
 	private int npcScore;
-	private static Logger logger = LogManager.getLogger(com.antazri.main.mastermind.Mastermind.class);
+	private static Logger logger = LogManager.getLogger(Mastermind.class);
 
 	/**
 	 * Constructeur de l'objet Mastermind.
@@ -54,6 +54,7 @@ public class Mastermind {
 	 *             entier
 	 */
 	public void run() {
+		logger.info("Connexion à Mastermind");
 		while (running) {
 			do {
 				System.out.println(
@@ -100,7 +101,7 @@ public class Mastermind {
 
 				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
-					logger.warn("L'utilisateur a rentré une donnée inconnue dans le choix de mode de jeu");
+					logger.trace("L'utilisateur a rentré une donnée inconnue dans le choix de mode de jeu");
 					scan.next();
 				}
 			} while (game != 0);

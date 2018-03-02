@@ -31,7 +31,7 @@ public class CodeSearch {
 	private int game = -1;
 	private int userScore = 0;
 	private int npcScore = 0;
-	private static Logger logger = LogManager.getLogger(com.antazri.main.code.CodeSearch.class);
+	private static Logger logger = LogManager.getLogger(CodeSearch.class);
 
 	/**
 	 * Constructeur de l'objet CodeSearch.
@@ -56,6 +56,7 @@ public class CodeSearch {
 	 *             entier.
 	 */
 	public void run() {
+		logger.info("Connexion à CodeSerch");
 		while (running) {
 			do {
 				System.out.println(
@@ -102,7 +103,7 @@ public class CodeSearch {
 
 				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
-					logger.warn("L'utilisateur a rentré une donnée inconnue dans le choix de mode de jeu");
+					logger.trace("L'utilisateur a rentré une donnée inconnue dans le choix de mode de jeu");
 					scan.next();
 				}
 			} while (game != 0);

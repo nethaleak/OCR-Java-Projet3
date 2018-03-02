@@ -34,13 +34,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-		      DOMConfigurator.configure("log4j2.xml");
-		    } catch (Exception e) {
-		      e.printStackTrace();
-		    }
+			DOMConfigurator.configure("log4j2.xml");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		while (running) {
 			do {
-				logger.trace("Lancement du programme");
+				logger.info("Lancement du programme");
 				System.out.println(
 						"=========================================\nBienvenue dans l'OpenClassrooms Game Center\n=========================================\n"
 								+ "1 - Code Search\n" + "2 - Mastermind\n" + "0 - Quitter le Game Center\n"
@@ -69,7 +69,7 @@ public class Main {
 
 				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
-					logger.error("L'utilisateur a entré une donnée non reconnue");
+					logger.info("L'utilisateur a entré une donnée non reconnue");
 					scan.next();
 				}
 
@@ -80,7 +80,7 @@ public class Main {
 		}
 
 		System.out.println("** Bye ! **");
-		logger.trace("Sortie du programme");
+		logger.info("Sortie du programme");
 	}
 
 }
