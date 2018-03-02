@@ -101,11 +101,12 @@ public class Mastermind {
 
 				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
-					logger.trace("L'utilisateur a rentré une donnée inconnue dans le choix de mode de jeu");
+					logger.fatal("L'utilisateur a rentré une donnée inconnue dans le choix de mode de jeu");
 					scan.next();
 				}
 			} while (game != 0);
-
+			
+			logger.info("Sortie du jeu Mastermind");
 			running = false;
 			break;
 		}
@@ -122,6 +123,7 @@ public class Mastermind {
 	 *             entier
 	 */
 	public void runChallenge() {
+		logger.info("Lancement du mode Challenger");
 		proposition = new UserCodeColor(codeLength);
 		answer = new NpcCodeColor(codeLength);
 		loop = 1;
@@ -158,6 +160,7 @@ public class Mastermind {
 					} catch (Exception e) {
 						System.out.println(
 								"Il y a eu un problème dans votre réponse, votre proposition n'a pas été prise en compte");
+						logger.error("Erreur utilisateur : proposition rejetée (mauvaises données entrées)");
 					}
 					loop++;
 				}
@@ -179,6 +182,7 @@ public class Mastermind {
 	 *             entier
 	 */
 	public void runDefense() {
+		logger.info("Lancement du mode Defender");
 		loop = 1;
 		proposition = new NpcCodeColor(codeLength);
 		answer = new UserCodeColor(codeLength);
@@ -218,6 +222,7 @@ public class Mastermind {
 								+ npcComparator.compareTo(answer));
 					} catch (Exception e) {
 						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						logger.error("Erreur utilisateur : redémarrage du jeu");
 						break;
 					}
 					loop++;
@@ -239,6 +244,7 @@ public class Mastermind {
 	 *             entier.
 	 */
 	public void runDuel() {
+		logger.info("Lancement du mode Duel");
 		loop = 1;
 		AbstractCodeColor userProp = new UserCodeColor(codeLength);
 		AbstractCodeColor userAnswer = new UserCodeColor(codeLength);
@@ -283,6 +289,7 @@ public class Mastermind {
 								+ userComparator.compareTo(npcAnswer));
 					} catch (Exception e) {
 						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						logger.error("Erreur utilisateur : redémarrage du jeu");
 						break;
 					}
 				}
@@ -300,6 +307,7 @@ public class Mastermind {
 								+ npcComparator.compareTo(userAnswer));
 					} catch (Exception e) {
 						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						logger.error("Erreur utilisateur : redémarrage du jeu");
 						break;
 					}
 				}
@@ -326,6 +334,7 @@ public class Mastermind {
 	 *             entier.
 	 */
 	public void runMatch() {
+		logger.info("Lancement du mode Match");
 		userScore = 0;
 		npcScore = 0;
 		loop = 1;
@@ -357,7 +366,8 @@ public class Mastermind {
 			System.out.println("Vous avez perdu contre l'ordinateur !\nScore final : Joueur " + this.userScore + " / "
 					+ this.npcScore + " Ordinateur");
 		} else {
-			System.out.println("Houston, we have a problem");
+			System.out.println("Erreur dans la compatiblisation des scores");
+			logger.error("Erreur dans la compatiblisation des scores");
 		}
 	}
 

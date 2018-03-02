@@ -1,0 +1,8 @@
+
+11:21:31.809 [main] INFO  com.antazri.main.Main - Lancement du programme
+11:21:31.812 [main] INFO  com.antazri.main.Main - Accès au menu principal
+11:21:33.255 [main] INFO  com.antazri.main.code.CodeSearch - Connexion à CodeSearch
+11:22:03.003 [main] INFO  com.antazri.main.Main - Lancement du programme
+11:22:03.005 [main] INFO  com.antazri.main.Main - Accès au menu principal
+11:22:04.665 [main] INFO  com.antazri.main.code.CodeSearch - Connexion à CodeSearch
+11:22:09.162 [main] TRACE com.antazri.main.code.CodeSearch - L'utilisateur a rentré une donnée inconnue dans le choix de mode de jeu

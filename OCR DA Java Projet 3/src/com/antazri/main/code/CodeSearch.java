@@ -56,7 +56,7 @@ public class CodeSearch {
 	 *             entier.
 	 */
 	public void run() {
-		logger.info("Connexion à CodeSerch");
+		logger.info("Connexion à CodeSearch");
 		while (running) {
 			do {
 				System.out.println(
@@ -107,7 +107,7 @@ public class CodeSearch {
 					scan.next();
 				}
 			} while (game != 0);
-
+			logger.info("Sortie du jeu CodeSearch");
 			running = false;
 			break;
 		}
@@ -124,6 +124,7 @@ public class CodeSearch {
 	 *             entier.
 	 */
 	public void runChallenge() {
+		logger.info("Lancement du mode Challenger");
 		proposition = new UserCodeInteger(codeLength);
 		answer = new NpcCodeInteger(codeLength);
 		loop = 1;
@@ -175,6 +176,7 @@ public class CodeSearch {
 	 *             entier.
 	 */
 	public void runDefense() {
+		logger.info("Lancement du mode Defender");
 		loop = 1;
 		proposition = new NpcCodeInteger(codeLength);
 		answer = new UserCodeInteger(codeLength);
@@ -229,6 +231,7 @@ public class CodeSearch {
 	 *             entier.
 	 */
 	public void runDuel() {
+		logger.info("Lancement du mode Duel");
 		loop = 1;
 		AbstractCodeInteger userProp = new UserCodeInteger(codeLength);
 		AbstractCodeInteger userAnswer = new UserCodeInteger(codeLength);
@@ -273,6 +276,7 @@ public class CodeSearch {
 								+ userComparator.compareTo(npcAnswer));
 					} catch (Exception e) {
 						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						logger.error("Erreur utilisateur : redémarrage du jeu");
 						break;
 					}
 				}
@@ -290,6 +294,7 @@ public class CodeSearch {
 								+ npcComparator.compareTo(userAnswer));
 					} catch (Exception e) {
 						System.out.println("Il y a eu un problème dans votre code, la jeu va redémarrer");
+						logger.error("Erreur utilisateur : redémarrage du jeu");
 						break;
 					}
 				}
@@ -316,6 +321,7 @@ public class CodeSearch {
 	 *             entier.
 	 */
 	public void runMatch() {
+		logger.info("Lancement du mode Match");
 		userScore = 0;
 		npcScore = 0;
 		loop = 1;
@@ -345,7 +351,8 @@ public class CodeSearch {
 			System.out.println("Vous avez perdu contre l'ordinateur !\nScore final : Joueur " + this.userScore + " / "
 					+ this.npcScore + " Ordinateur");
 		} else {
-			System.out.println("Houston, we have a problem");
+			System.out.println("Il y a eu un problème dans le résultat final");
+			logger.error("Erreur dans la compatiblisation des scores");
 		}
 
 		return;

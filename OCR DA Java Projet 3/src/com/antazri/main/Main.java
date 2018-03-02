@@ -4,7 +4,6 @@ import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,14 +32,10 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		try {
-			DOMConfigurator.configure("log4j2.xml");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		logger.info("Lancement du programme");
 		while (running) {
 			do {
-				logger.info("Lancement du programme");
+				logger.info("Accès au menu principal");
 				System.out.println(
 						"=========================================\nBienvenue dans l'OpenClassrooms Game Center\n=========================================\n"
 								+ "1 - Code Search\n" + "2 - Mastermind\n" + "0 - Quitter le Game Center\n"
@@ -69,7 +64,7 @@ public class Main {
 
 				} catch (InputMismatchException e) {
 					System.out.println("Je n'ai pas compris votre réponse");
-					logger.info("L'utilisateur a entré une donnée non reconnue");
+					logger.warn("L'utilisateur a entré une donnée non reconnue");
 					scan.next();
 				}
 

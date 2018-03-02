@@ -6,6 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.antazri.main.utils.CoinColor;
 
 /**
@@ -17,6 +20,8 @@ import com.antazri.main.utils.CoinColor;
  */
 
 public class UserCodeColor extends AbstractCodeColor {
+	
+	private static Logger logger = LogManager.getLogger(UserCodeColor.class);
 
 	/**
 	 * Le contructeur de l'objet initialise ses attributs List "elements", qui
@@ -87,6 +92,7 @@ public class UserCodeColor extends AbstractCodeColor {
 
 		} catch (InputMismatchException e) {
 			System.out.println("Houston we have a problem : cette entrée n'est pas reconnue par Skynet !");
+			logger.error("Erreur : la donnée entrée est inconnue/invalide");
 			scan.next();
 		}
 	}

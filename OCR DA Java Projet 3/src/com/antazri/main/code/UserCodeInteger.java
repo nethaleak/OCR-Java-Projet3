@@ -1,7 +1,11 @@
 package com.antazri.main.code;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * NpcCodeInteger est une classe fille de AbstractCodeInteger, elle permet de
@@ -13,6 +17,8 @@ import java.util.Scanner;
  */
 
 public class UserCodeInteger extends AbstractCodeInteger {
+	
+	private static Logger logger = LogManager.getLogger(UserCodeInteger.class);
 
 	/**
 	 * Le contructeur de l'objet initialise son attribut List "elements" qui
@@ -38,6 +44,11 @@ public class UserCodeInteger extends AbstractCodeInteger {
 	public void generateCode() {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-		this.addElement(new Integer(scan.nextInt()));
+		try {
+			this.addElement(new Integer(scan.nextInt()));
+		} catch (InputMismatchException e) {
+			logger.error("Erreur : la donnée entrée est inconnue/invalide");
+			scan.next();
+		}
 	}
 }
