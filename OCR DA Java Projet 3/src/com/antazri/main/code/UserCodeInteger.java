@@ -1,7 +1,6 @@
 package com.antazri.main.code;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
@@ -41,14 +40,15 @@ public class UserCodeInteger extends AbstractCodeInteger {
 	 * un objet Scanner.
 	 */
 	@Override
-	public void generateCode() {
+	public Integer generateCode(int index) {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
-		try {
-			this.addElement(new Integer(scan.nextInt()));
-		} catch (InputMismatchException e) {
-			logger.error("Erreur : la donnée entrée est inconnue/invalide");
+		while (!scan.hasNextInt()) {
+			System.out.println("Réponse invalide. Veuillez rentrer un chiffre entre 0 et 9 :");
+			logger.error("Donnée invalide. Demande de resaisie");
 			scan.next();
 		}
+		
+		return new Integer(scan.nextInt());
 	}
 }

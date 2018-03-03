@@ -52,7 +52,7 @@ public class UserCodeColor extends AbstractCodeColor {
 	 * @throws InputMismatchException Une exception peut être levée en cas de mauvaise entrée dans l'objet Scanner scan
 	 */
 	@Override
-	public void generateCode() {
+	public CoinColor generateCode(int index) {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 
@@ -62,38 +62,33 @@ public class UserCodeColor extends AbstractCodeColor {
 
 			switch (color) {
 			case "noir":
-				this.addElement(CoinColor.BLACK);
-				break;
+				return CoinColor.BLACK;
 
 			case "blanc":
-				this.addElement(CoinColor.WHITE);
-				break;
+				return CoinColor.WHITE;
 
 			case "bleu":
-				this.addElement(CoinColor.BLUE);
-				break;
+				return CoinColor.BLUE;
 
 			case "jaune":
-				this.addElement(CoinColor.YELLOW);
-				break;
+				return CoinColor.YELLOW;
 
 			case "rouge":
-				this.addElement(CoinColor.RED);
-				break;
+				return CoinColor.RED;
 
 			case "vert":
-				this.addElement(CoinColor.GREEN);
-				break;
+				return CoinColor.GREEN;
 
 			default:
 				System.out.println("Ceci n'est pas une couleur connue");
-				break;
+				logger.error("La couleur entrée par l'utilisateur est invalide");
+				return null;
 			}
 
 		} catch (InputMismatchException e) {
 			System.out.println("Houston we have a problem : cette entrée n'est pas reconnue par Skynet !");
 			logger.error("Erreur : la donnée entrée est inconnue/invalide");
-			scan.next();
+			return null;
 		}
 	}
 }

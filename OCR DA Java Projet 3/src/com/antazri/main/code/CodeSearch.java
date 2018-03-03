@@ -130,7 +130,11 @@ public class CodeSearch {
 		loop = 1;
 		System.out.println("Votre mission est de trouver le code secret généré par votre adversaire ! \n"
 				+ "Vous aurez en tout 4 essais. Bonne chance !\n=========================================");
-		answer.generateCode();
+		
+		for (int i = 0; i < answer.getLength(); i++) {
+			answer.addElement(answer.generateCode(i));
+		}
+		
 		if (developper) {
 			System.out.println("(Le code généré est : " + answer.toString() + ")");
 		}
@@ -141,7 +145,14 @@ public class CodeSearch {
 
 			for (int i = 0; i < proposition.getLength(); i++) {
 				System.out.println("Chiffre n°" + (i + 1));
-				proposition.generateCode();
+				Integer element = proposition.generateCode(i);
+				
+				while (element < 0 || element > 9) {
+					System.out.println("Entrée invalide, veuillez entrer un chiffre entre 0 et 9 :");
+					element = proposition.generateCode(i);
+				}
+				
+				proposition.addElement(element);
 			}
 
 			if (proposition.toString().equals(answer.toString())) {
@@ -162,7 +173,6 @@ public class CodeSearch {
 				}
 			}
 		} while (loop < (maxLoop + 1));
-		return;
 	}
 
 	/**
@@ -188,13 +198,23 @@ public class CodeSearch {
 
 		for (int i = 0; i < answer.getLength(); i++) {
 			System.out.println("Chiffre n°" + (i + 1));
-			answer.generateCode();
+			Integer element = answer.generateCode(i);
+			
+			while (element < 0 || element > 9) {
+				System.out.println("Entrée invalide, veuillez entrer un chiffre entre 0 et 9 :");
+				element = answer.generateCode(i);
+			}
+			
+			answer.addElement(element);
 		}
 
 		System.out.println("Vous avez défini le code : " + answer.toString());
 
 		do {
-			proposition.generateCode();
+			proposition.resetCode();
+			for (int i = 0; i < proposition.getLength(); i++) {
+				proposition.addElement(proposition.generateCode(i));
+			}
 			System.out.println("\nL'ordinateur propose le code : " + proposition.toString());
 
 			if (proposition.toString().equals(answer.toString())) {
@@ -246,10 +266,19 @@ public class CodeSearch {
 
 		for (int i = 0; i < userAnswer.getLength(); i++) {
 			System.out.println("Chiffre n°" + (i + 1));
-			userAnswer.generateCode();
+			Integer element = userAnswer.generateCode(i);
+			
+			while (element < 0 || element > 9) {
+				System.out.println("Entrée invalide, veuillez entrer un chiffre entre 0 et 9 :");
+				element = userAnswer.generateCode(i);
+			}
+			
+			userAnswer.addElement(element);
 		}
 
-		npcAnswer.generateCode();
+		for (int i = 0; i < npcAnswer.getLength(); i++) {
+			npcAnswer.addElement(npcAnswer.generateCode(i));
+		}
 
 		if (developper) {
 			System.out.println("( + votre code est : " + userAnswer.toString() + ")");
@@ -261,7 +290,14 @@ public class CodeSearch {
 
 			for (int i = 0; i < userProp.getLength(); i++) {
 				System.out.println("Chiffre n°" + (i + 1));
-				userProp.generateCode();
+				Integer element = userProp.generateCode(i);
+				
+				while (element < 0 || element > 9) {
+					System.out.println("Entrée invalide, veuillez entrer un chiffre entre 0 et 9 :");
+					element = userProp.generateCode(i);
+				}
+				
+				userProp.addElement(element);
 			}
 
 			if (loop <= maxLoop) {
@@ -281,7 +317,10 @@ public class CodeSearch {
 					}
 				}
 
-				npcProp.generateCode();
+				npcProp.resetCode();
+				for (int i = 0; i < npcProp.getLength(); i++) {
+					npcProp.addElement(npcProp.generateCode(i));
+				}
 
 				if (npcProp.getElements().equals(userAnswer.getElements())) {
 					System.out.println(

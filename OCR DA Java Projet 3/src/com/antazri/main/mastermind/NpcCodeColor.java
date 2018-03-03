@@ -46,16 +46,14 @@ public class NpcCodeColor extends AbstractCodeColor {
 	 * code à la position i, sinon la sélection recommence.
 	 */
 	@Override
-	public void generateCode() {
-		for (int i = 0; i < this.getLength(); i++) {
-			List<CoinColor> listWrongColors = this.wrongColors.get(i);
+	public CoinColor generateCode(int index) {
+			List<CoinColor> listWrongColors = this.wrongColors.get(index);
 			CoinColor color;
 
 			do {
 				color = allColors().get((int) Math.floor(Math.random() * allColors().size()));
 			} while (listWrongColors.contains(color));
 
-			this.addElement(color);
-		}
+			return color;
 	}
 }

@@ -19,7 +19,7 @@ public abstract interface ICode<T> {
 	/**
 	 * La méthode generateCode définit la manière dont le code est généré.
 	 */
-	public abstract void generateCode();
+	public abstract T generateCode(int index);
 
 	/**
 	 * La méthode resetCode définit la manière dont le code est réinitialisé.

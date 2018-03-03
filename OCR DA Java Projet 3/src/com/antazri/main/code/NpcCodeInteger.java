@@ -36,11 +36,9 @@ public class NpcCodeInteger extends AbstractCodeInteger {
 	 * bornes[][] initialisé dans la superclasse AbstractCodeInteger.
 	 */
 	@Override
-	public void generateCode() {
+	public Integer generateCode(int index) {
 		Random random = new Random();
-		this.resetCode();
-		for (int i = 0; i < this.length; i++) {
-			this.addElement(new Integer(random.nextInt(this.bornes[i][1] + 1 - this.bornes[i][0]) + this.bornes[i][0]));
-		}
+		
+		return new Integer(random.nextInt(this.bornes[index][1] + 1 - this.bornes[index][0]) + this.bornes[index][0]);
 	}
 }

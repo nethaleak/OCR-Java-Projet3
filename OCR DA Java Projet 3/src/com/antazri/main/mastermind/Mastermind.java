@@ -7,6 +7,8 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.antazri.main.utils.CoinColor;
+
 /**
  * Mastermind.java est la classe principale du jeu Mastermind. Elle charge tous
  * les paramètres et classes nécessaires au fonctionnement du jeu lors de son
@@ -105,7 +107,7 @@ public class Mastermind {
 					scan.next();
 				}
 			} while (game != 0);
-			
+
 			logger.info("Sortie du jeu Mastermind");
 			running = false;
 			break;
@@ -129,7 +131,11 @@ public class Mastermind {
 		loop = 1;
 		System.out.println("Votre mission est de trouver le code secret généré par votre adversaire ! \n"
 				+ "Vous aurez en tout 4 essais. Bonne chance !\n=========================================");
-		answer.generateCode();
+
+		for (int i = 0; i < answer.getLength(); i++) {
+			answer.addElement(answer.generateCode(i));
+		}
+
 		if (developper) {
 			System.out.println("(Le code généré est : " + answer.toString() + ")");
 		}
@@ -139,7 +145,13 @@ public class Mastermind {
 
 			for (int i = 0; i < proposition.getLength(); i++) {
 				System.out.println("Pion " + (i + 1) + " : Noir / Blanc / Jaune / Rouge / Vert / Bleu");
-				proposition.generateCode();
+				CoinColor element = proposition.generateCode(i);
+
+				while (element == null) {
+					element = proposition.generateCode(i);
+				}
+
+				proposition.addElement(element);
 			}
 
 			if (proposition.getElements().equals(answer.getElements())) {
@@ -172,10 +184,10 @@ public class Mastermind {
 	}
 
 	/**
-	 * Méthode du mode de jeu Defender : l'adversaire non-joueur (NPC) doit trouver le code
-	 * défini par le joueur dans une boucle appelant la méthode de génération de
-	 * code dans UserCodeColor.java. Les valeurs sont ensuite comparés via la
-	 * méthode compareTo de l'objet ComparatorColor.
+	 * Méthode du mode de jeu Defender : l'adversaire non-joueur (NPC) doit trouver
+	 * le code défini par le joueur dans une boucle appelant la méthode de
+	 * génération de code dans UserCodeColor.java. Les valeurs sont ensuite comparés
+	 * via la méthode compareTo de l'objet ComparatorColor.
 	 * 
 	 * @throws InputMismatchException
 	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
@@ -194,14 +206,24 @@ public class Mastermind {
 
 		for (int i = 0; i < answer.getLength(); i++) {
 			System.out.println("Pion " + (i + 1) + " : Noir / Blanc / Jaune / Rouge / Vert / Bleu");
-			answer.generateCode();
+			CoinColor element = answer.generateCode(i);
+
+			while (element == null) {
+				element = answer.generateCode(i);
+			}
+
+			answer.addElement(element);
 		}
 
 		System.out.println("\nVous avez défini le code : " + answer.toString());
 
 		do {
 			proposition.resetCode();
-			proposition.generateCode();
+
+			for (int i = 0; i < proposition.getLength(); i++) {
+				proposition.addElement(proposition.generateCode(i));
+			}
+
 			System.out
 					.println("\nProposition n°" + loop + "\nL'ordinateur propose le code : " + proposition.toString());
 
@@ -233,11 +255,11 @@ public class Mastermind {
 	}
 
 	/**
-	 * Méthode du mode de jeu Duel : le joueur et l'adversaire non-joueur (NPC) définissent
-	 * chacun leur code et doivent trouver le code adverse en premier. Les codes
-	 * sont générés par des méthodes generateCode définies dans UserCodeColor.java et
-	 * NpcCodeColor.java. A chaque tour les valeurs sont comparées via des
-	 * méthodes compareTo d'objets ComparatorColor.
+	 * Méthode du mode de jeu Duel : le joueur et l'adversaire non-joueur (NPC)
+	 * définissent chacun leur code et doivent trouver le code adverse en premier.
+	 * Les codes sont générés par des méthodes generateCode définies dans
+	 * UserCodeColor.java et NpcCodeColor.java. A chaque tour les valeurs sont
+	 * comparées via des méthodes compareTo d'objets ComparatorColor.
 	 * 
 	 * @throws InputMismatchException
 	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
@@ -259,10 +281,18 @@ public class Mastermind {
 
 		for (int i = 0; i < userAnswer.getLength(); i++) {
 			System.out.println("Pion " + (i + 1) + " : Noir / Blanc / Jaune / Rouge / Vert / Bleu");
-			userAnswer.generateCode();
+			CoinColor element = userAnswer.generateCode(i);
+
+			while (element == null) {
+				element = userAnswer.generateCode(i);
+			}
+
+			userAnswer.addElement(element);
 		}
 
-		npcAnswer.generateCode();
+		for (int i = 0; i < npcAnswer.getLength(); i++) {
+			npcAnswer.addElement(npcAnswer.generateCode(i));
+		}
 
 		if (developper) {
 			System.out.println("( + votre code est : " + userAnswer.toString() + ")");
@@ -274,7 +304,13 @@ public class Mastermind {
 
 			for (int i = 0; i < userProp.getLength(); i++) {
 				System.out.println("Pion " + (i + 1) + " : Noir / Blanc / Jaune / Rouge / Vert / Bleu");
-				userProp.generateCode();
+				CoinColor element = userProp.generateCode(i);
+
+				while (element == null) {
+					element = userProp.generateCode(i);
+				}
+
+				userProp.addElement(element);
 			}
 
 			if (loop <= maxLoop) {
@@ -294,7 +330,9 @@ public class Mastermind {
 					}
 				}
 
-				npcProp.generateCode();
+				for (int i = 0; i < npcProp.getLength(); i++) {
+					npcProp.addElement(npcProp.generateCode(i));
+				}
 
 				if (npcProp.getElements().equals(userAnswer.getElements())) {
 					System.out.println(
@@ -326,8 +364,9 @@ public class Mastermind {
 	}
 
 	/**
-	 * Méthode du mode de jeu Match : le joueur et l'adversaire non-joueur non-joueur (NPC) jouent à l'un
-	 * de smodes Defender ou Challenger selon le résultat de Math.random().
+	 * Méthode du mode de jeu Match : le joueur et l'adversaire non-joueur
+	 * non-joueur (NPC) jouent à l'un de smodes Defender ou Challenger selon le
+	 * résultat de Math.random().
 	 * 
 	 * @throws InputMismatchException
 	 *             une erreur peut apparaître si l'utilsateur de saisit pas un
