@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry excluding="com/antazri/main/ressources/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="/Users/anthony/LearnToCode/OpenClassRooms/Java/apache-log4j-2.10.0-bin/log4j-1.2-api-2.10.0.jar"/>
 	<classpathentry kind="lib" path="/Users/anthony/LearnToCode/OpenClassRooms/Java/apache-log4j-2.10.0-bin/log4j-api-2.10.0.jar"/>
 	<classpathentry kind="lib" path="/Users/anthony/LearnToCode/OpenClassRooms/Java/apache-log4j-2.10.0-bin/log4j-core-2.10.0.jar"/>
