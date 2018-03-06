@@ -35,11 +35,11 @@ Si le programme vous indique qu'aucun fichier de configuration Log4J2 n'a été 
 4. Validez
 
 Vous pouvez lancer le programme et retrouver les logs dans logs > application.log
-=======
+
 Pour installer l'application dans votre IDE, vous pouvez télécharger l'archive du projet puis dans votre IDE (ici nous utilsons en exemple Eclipse) cliquez sur Import > General > Archive File puis séléctionnez l'archive et enfin cliquez sur Finish.
 
 Le programme lèvera une Exception si vous le lancez car il ne trouvera pas log4j2. Pour contourner le problème, vous trouverez dans ce projet les fichiers JAR de Log4J2 qu'il vous faudra également importe en cliquant droit sur votre projet puis sur Build Path > Configure Build Path. Dans l'onglet Libraries, cliquez sur Add External JARs puis sélectionnez les 3 fichiers .jar
->>>>>>> branch 'master' of https://github.com/nethaleak/OCR-Java-Projet3.git
+
 
 /*
 ** Propriétés
