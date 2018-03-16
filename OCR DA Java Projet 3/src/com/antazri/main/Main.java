@@ -32,7 +32,17 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		logger.info("Lancement du programme");
+		logger.info("Lancement du programme");		
+		if(args.length > 0 && args[0].equals("true")) {
+			developper = true;
+		} else {
+			developper = false;
+		}
+		
+		if(developper) {
+			System.out.println("** Mode développeur activé **");
+		}
+		
 		while (running) {
 			
 			do {
