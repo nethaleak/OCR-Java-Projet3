@@ -102,7 +102,7 @@ public class ComparatorColor implements IComparator<AbstractCodeColor> {
 			}
 		}
 
-		return "Pions présents : " + this.getPresentPieces() + "/4 | Pions bien placés : " + this.getRightPieces()
-				+ "/4";
+		return "Pions présents : " + this.getPresentPieces() + "/" + code.getLength() + " | Pions bien placés : " + this.getRightPieces()
+				+ "/" + code.getLength();
 	}
 }

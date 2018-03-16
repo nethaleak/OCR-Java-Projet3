@@ -23,7 +23,6 @@ Chaque jeu dispose de 4 modes :
 ** Import / Compilation
 */
 
-<<<<<<< HEAD
 Pour installer l'application dans votre IDE, vous pouvez télécharger l'archive du projet puis dans votre IDE (ici nous utilsons en exemple Eclipse) cliquez sur Import > General > Projects from Folder or Archive puis séléctionnez l'archive et enfin cliquez sur Finish.
 
 Le programme lèvera une Exception si vous le lancez car il ne trouvera pas log4j2. Pour contourner le problème, vous trouverez dans ce projet les fichiers JAR de Log4J2 qu'il vous faudra également importe en cliquant droit sur votre projet puis sur Build Path > Configure Build Path. Dans l'onglet Libraries, cliquez sur Add External JARs puis sélectionnez les 3 fichiers .jar

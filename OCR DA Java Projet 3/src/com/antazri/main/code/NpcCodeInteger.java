@@ -13,7 +13,7 @@ import java.util.Random;
  */
 
 public class NpcCodeInteger extends AbstractCodeInteger {
-
+	
 	/**
 	 * Le contructeur de l'objet initialise son attribut List "elements" qui
 	 * contient le code.
@@ -27,6 +27,13 @@ public class NpcCodeInteger extends AbstractCodeInteger {
 
 		this.length = length;
 		this.elements = new ArrayList<Integer>();
+		
+		this.bornes = new int[length][2];
+
+		for (int i = 0; i < this.length; i++) {
+			this.bornes[i][0] = 0;
+			this.bornes[i][1] = 9;
+		}
 	}
 
 	/**

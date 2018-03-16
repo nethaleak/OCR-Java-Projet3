@@ -32,6 +32,13 @@ public class UserCodeInteger extends AbstractCodeInteger {
 
 		this.length = length;
 		this.elements = new ArrayList<Integer>();
+		
+		this.bornes = new int[length][2];
+
+		for (int i = 0; i < this.length; i++) {
+			this.bornes[i][0] = 0;
+			this.bornes[i][1] = 9;
+		}
 	}
 
 	/**

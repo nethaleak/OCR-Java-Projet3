@@ -129,7 +129,7 @@ public class CodeSearch {
 		answer = new NpcCodeInteger(codeLength);
 		loop = 1;
 		System.out.println("Votre mission est de trouver le code secret généré par votre adversaire ! \n"
-				+ "Vous aurez en tout 4 essais. Bonne chance !\n=========================================");
+				+ "Vous aurez en tout "  + maxLoop + " essais. Bonne chance !\n=========================================");
 		
 		for (int i = 0; i < answer.getLength(); i++) {
 			answer.addElement(answer.generateCode(i));

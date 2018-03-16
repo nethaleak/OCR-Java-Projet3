@@ -6,10 +6,10 @@ import com.antazri.main.utils.ICode;
 
 /**
  * AbstractCodeInteger est la classe abstraite définissant les objets
- * définissant les codes du jeu CodeSearch. Cette classe est utilisée
- * pour construire les différentes versions de codes (joueur ou npc). Elle
- * implémente une interface générique Code spécifiant les comportements des types
- * de codes de l'application.
+ * définissant les codes du jeu CodeSearch. Cette classe est utilisée pour
+ * construire les différentes versions de codes (joueur ou npc). Elle implémente
+ * une interface générique Code spécifiant les comportements des types de codes
+ * de l'application.
  * 
  * @author AnthonyT
  * @version 1.0
@@ -19,10 +19,11 @@ public abstract class AbstractCodeInteger implements ICode<Integer> {
 
 	protected List<Integer> elements;
 	protected int length;
-	protected int[][] bornes = { { 0, 9 }, { 0, 9 }, { 0, 9 }, { 0, 9 } };
+	protected int[][] bornes;
 
 	protected AbstractCodeInteger() {
 		super();
+
 	}
 
 	/**
@@ -64,8 +65,8 @@ public abstract class AbstractCodeInteger implements ICode<Integer> {
 	}
 
 	/**
-	 * Méthode définie dans l'interface Code et permet d'ajouter un élément dans
-	 * la Collection.
+	 * Méthode définie dans l'interface Code et permet d'ajouter un élément dans la
+	 * Collection.
 	 * 
 	 * @param element
 	 *            Element à ajouter dans la collection

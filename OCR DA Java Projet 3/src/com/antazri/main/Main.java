@@ -34,6 +34,7 @@ public class Main {
 	public static void main(String[] args) {
 		logger.info("Lancement du programme");
 		while (running) {
+			
 			do {
 				logger.info("Accès au menu principal");
 				System.out.println(
